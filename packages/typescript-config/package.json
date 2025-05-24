@@ -1,0 +1,9 @@
+{
+  "name": "@repo/typescript-config",
+  "version": "1.0.0",
+  "main": "tsconfig.base.json",
+  "private": true,
+  "files": [
+    "tsconfig.base.json"
+  ]
+}

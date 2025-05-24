@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "packageManager": "pnpm@10.11.0",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "packages/db",
+    "packages/ui",
+    "packages/eslint-config"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "eslint-config-turbo": "^2.5.3",
+    "prisma": "^6.8.2",
+    "turbo": "^2.5.3"
+  },
+  "prisma": {
+    "schema": "packages/db/schema.prisma"
+  },
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter web dev --turbopack\" \"cd apps/api && PYTHONPATH=./src poetry run uvicorn api.main:app --reload --host 0.0.0.0 --port 8000\"",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "generate:prisma:py": "cd packages/db && prisma generate",
+    "type-check": "pnpm -r run type-check",
+    "test": "pnpm -r run test",
+    "format": "concurrently \"pnpm --filter api format\" \"pnpm --filter web format\" \"pnpm --filter ui format\" \"pnpm --filter db format\"",
+    "format:check": "concurrently \"pnpm --filter api format:check\" \"pnpm --filter web format:check\" \"pnpm --filter ui format:check\" \"pnpm --filter db format:check\""
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "typescript": "^5.8.3"
+  }
+}
