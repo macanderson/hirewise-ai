@@ -20,7 +20,9 @@
     "noImplicitOverride": true,
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
+    "incremental": true,
+    "composite": true,
     "baseUrl": ".",
     "types": ["node", "react", "react-dom"]
   },

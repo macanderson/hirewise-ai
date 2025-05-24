@@ -4,11 +4,15 @@
   "workspaces": [
     "apps/web",
     "apps/api",
-    "packages/db",
     "packages/ui",
-    "packages/eslint-config"
+    "packages/eslint-config",
+    "packages/typescript-config",
+    "packages/lib"
   ],
   "devDependencies": {
+    "@types/node": "^20.17.50",
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
     "concurrently": "^9.1.2",
     "eslint-config-turbo": "^2.5.3",
     "prisma": "^6.8.2",

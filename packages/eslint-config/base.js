@@ -1,4 +1,4 @@
-// Custom ESLint base config for orchestrai monorepo
+// Custom ESLint base config for hirewise monorepo
 // Usage: import this file in your .eslintrc.js as: import config from 'eslint-config/base'
 
 import turboConfig from 'eslint-config-turbo/flat';

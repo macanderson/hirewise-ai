@@ -33,61 +33,65 @@ async def setup_database():
 
         # Create default license
         print("Creating default license...")
-        license = await prisma.license.create({
-            "data": {"type": "FREE"}
-        })
+        license = await prisma.license.create({"data": {"type": "FREE"}})
 
         # Create default tenant
         print("Creating default tenant...")
-        tenant = await prisma.tenant.create({
-            "data": {
-                "name": "Default Organization",
-                "slug": "default-org",
-                "licenseId": license.id
+        tenant = await prisma.tenant.create(
+            {
+                "data": {
+                    "name": "Default Organization",
+                    "slug": "default-org",
+                    "licenseId": license.id,
+                }
             }
-        })
+        )
 
         # Create default roles
         print("Creating default roles...")
-        admin_role = await prisma.userrole.create({
-            "data": {
-                "name": "Business Admin",
-                "type": "BUSINESS_ADMIN",
-                "permissions": {
-                    "projects": ["create", "read", "update", "delete"],
-                    "agents": ["create", "read", "update", "delete"],
-                    "users": ["create", "read", "update", "delete"],
-                    "documents": ["create", "read", "update", "delete"]
+        admin_role = await prisma.userrole.create(
+            {
+                "data": {
+                    "name": "Business Admin",
+                    "type": "BUSINESS_ADMIN",
+                    "permissions": {
+                        "projects": ["create", "read", "update", "delete"],
+                        "agents": ["create", "read", "update", "delete"],
+                        "users": ["create", "read", "update", "delete"],
+                        "documents": ["create", "read", "update", "delete"],
+                    },
                 }
             }
-        })
+        )
 
-        await prisma.userrole.create({
-            "data": {
-                "name": "Customer User",
-                "type": "CUSTOMER_USER",
-                "permissions": {
-                    "projects": ["read"],
-                    "agents": ["read"],
-                    "documents": ["read"]
+        await prisma.userrole.create(
+            {
+                "data": {
+                    "name": "Customer User",
+                    "type": "CUSTOMER_USER",
+                    "permissions": {
+                        "projects": ["read"],
+                        "agents": ["read"],
+                        "documents": ["read"],
+                    },
                 }
             }
-        })
+        )
 
         # Create default admin user
         print("Creating default admin user...")
         await auth_service.register_user(
-            email="admin@orchestrai.com",
+            email="admin@hirewise.com",
             password="admin123!",  # Change this in production!
             tenant_id=tenant.id,
             first_name="Admin",
             last_name="User",
-            role_id=admin_role.id
+            role_id=admin_role.id,
         )
 
         print("\nSetup completed successfully!")
         print("\nDefault credentials:")
-        print("  Email: admin@orchestrai.com")
+        print("  Email: admin@hirewise.com")
         print("  Password: admin123!")
         print(f"  Tenant ID: {tenant.id}")
         print(f"  Tenant Slug: {tenant.slug}")
@@ -109,30 +113,20 @@ async def create_tenant(name: str, slug: str, license_type: str = "FREE"):
         await prisma.connect()
 
         # Check if slug already exists
-        existing = await prisma.tenant.find_first(
-            where={"slug": slug}
-        )
+        existing = await prisma.tenant.find_first(where={"slug": slug})
         if existing:
             print(f"Tenant with slug '{slug}' already exists!")
             return
 
         # Get or create license
-        license = await prisma.license.find_first(
-            where={"type": license_type}
-        )
+        license = await prisma.license.find_first(where={"type": license_type})
         if not license:
-            license = await prisma.license.create({
-                "data": {"type": license_type}
-            })
+            license = await prisma.license.create({"data": {"type": license_type}})
 
         # Create tenant
-        tenant = await prisma.tenant.create({
-            "data": {
-                "name": name,
-                "slug": slug,
-                "licenseId": license.id
-            }
-        })
+        tenant = await prisma.tenant.create(
+            {"data": {"name": name, "slug": slug, "licenseId": license.id}}
+        )
 
         print("Tenant created successfully!")
         print(f"  ID: {tenant.id}")
@@ -152,7 +146,7 @@ async def create_user(
     tenant_id: str,
     first_name: Optional[str] = None,
     last_name: Optional[str] = None,
-    role_type: str = "CUSTOMER_USER"
+    role_type: str = "CUSTOMER_USER",
 ):
     """Create a new user"""
     prisma = Prisma()
@@ -163,17 +157,13 @@ async def create_user(
         await auth_service.prisma.connect()
 
         # Verify tenant exists
-        tenant = await prisma.tenant.find_unique(
-            where={"id": tenant_id}
-        )
+        tenant = await prisma.tenant.find_unique(where={"id": tenant_id})
         if not tenant:
             print(f"Tenant with ID '{tenant_id}' not found!")
             return
 
         # Get role
-        role = await prisma.userrole.find_first(
-            where={"type": role_type}
-        )
+        role = await prisma.userrole.find_first(where={"type": role_type})
         if not role:
             print(f"Role type '{role_type}' not found!")
             return
@@ -185,7 +175,7 @@ async def create_user(
             tenant_id=tenant_id,
             first_name=first_name,
             last_name=last_name,
-            role_id=role.id
+            role_id=role.id,
         )
 
         print("User created successfully!")
@@ -206,67 +196,59 @@ def main():
     """Main entry point for the setup script"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='OrchestrAI Database Setup')
-    subparsers = parser.add_subparsers(dest='command', help='Commands')
+    parser = argparse.ArgumentParser(description="OrchestrAI Database Setup")
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # Setup command
-    subparsers.add_parser('init', help='Initialize database with defaults')
+    subparsers.add_parser("init", help="Initialize database with defaults")
 
     # Create tenant command
-    tenant_parser = subparsers.add_parser(
-        'create-tenant',
-        help='Create a new tenant'
+    tenant_parser = subparsers.add_parser("create-tenant", help="Create a new tenant")
+    tenant_parser.add_argument("--name", required=True, help="Tenant name")
+    tenant_parser.add_argument(
+        "--slug", required=True, help="Tenant slug (URL-friendly)"
     )
-    tenant_parser.add_argument('--name', required=True, help='Tenant name')
     tenant_parser.add_argument(
-        '--slug', required=True, help='Tenant slug (URL-friendly)')
-    tenant_parser.add_argument(
-        '--license',
-        default='FREE',
-        choices=['FREE', 'BASIC', 'PRO', 'ENTERPRISE', 'CUSTOM'],
-        help='License type'
+        "--license",
+        default="FREE",
+        choices=["FREE", "BASIC", "PRO", "ENTERPRISE", "CUSTOM"],
+        help="License type",
     )
 
     # Create user command
-    user_parser = subparsers.add_parser(
-        'create-user',
-        help='Create a new user'
-    )
-    user_parser.add_argument('--email', required=True, help='User email')
-    user_parser.add_argument('--password', required=True, help='User password')
-    user_parser.add_argument('--tenant-id', required=True, help='Tenant ID')
-    user_parser.add_argument('--first-name', help='First name')
-    user_parser.add_argument('--last-name', help='Last name')
+    user_parser = subparsers.add_parser("create-user", help="Create a new user")
+    user_parser.add_argument("--email", required=True, help="User email")
+    user_parser.add_argument("--password", required=True, help="User password")
+    user_parser.add_argument("--tenant-id", required=True, help="Tenant ID")
+    user_parser.add_argument("--first-name", help="First name")
+    user_parser.add_argument("--last-name", help="Last name")
     user_parser.add_argument(
-        '--role',
-        default='CUSTOMER_USER',
-        choices=[
-            'BUSINESS_ADMIN',
-            'BUSINESS_USER',
-            'CUSTOMER_ADMIN',
-            'CUSTOMER_USER'
-        ],
-        help='User role'
+        "--role",
+        default="CUSTOMER_USER",
+        choices=["BUSINESS_ADMIN", "BUSINESS_USER", "CUSTOMER_ADMIN", "CUSTOMER_USER"],
+        help="User role",
     )
 
     args = parser.parse_args()
 
-    if args.command == 'init':
+    if args.command == "init":
         asyncio.run(setup_database())
-    elif args.command == 'create-tenant':
+    elif args.command == "create-tenant":
         asyncio.run(create_tenant(args.name, args.slug, args.license))
-    elif args.command == 'create-user':
-        asyncio.run(create_user(
-            args.email,
-            args.password,
-            args.tenant_id,
-            args.first_name,
-            args.last_name,
-            args.role
-        ))
+    elif args.command == "create-user":
+        asyncio.run(
+            create_user(
+                args.email,
+                args.password,
+                args.tenant_id,
+                args.first_name,
+                args.last_name,
+                args.role,
+            )
+        )
     else:
         parser.print_help()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

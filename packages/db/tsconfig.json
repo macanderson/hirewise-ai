@@ -1,5 +1,0 @@
-{
-  "extends": "../typescript-config/tsconfig.base.json",
-  "include": ["schema.prisma"],
-  "exclude": ["node_modules"]
-}

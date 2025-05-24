@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "orchestrai-api"
+name = "hirewise-api"
 version = "0.1.0"
-description = "FastAPI services for OrchestrAI"
+description = "FastAPI services for HireWise.ai"
 authors = ["Mac Name <mac@macanderson.com>"]
 readme = "README.md"
 packages = [{ include = "api", from = "src" }]

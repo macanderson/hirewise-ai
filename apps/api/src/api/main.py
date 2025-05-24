@@ -111,7 +111,7 @@ app = FastAPI(
     },
     contact={
         "name": settings.PROJECT_NAME,
-        "url": "https://orchestrai.com",
+        "url": "https://hirewise.com",
     },
     lifespan=lifespan,
     docs_url=f"{settings.API_V1_STR}/docs",

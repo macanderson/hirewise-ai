@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@repo/ui",
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@10.11.0",

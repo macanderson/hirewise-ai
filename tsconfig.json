@@ -3,15 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/typescript-config": ["packages/typescript-config/tsconfig.base.json"],
-      "@repo/eslint-config": ["packages/eslint-config/base.js"],
-      "@repo/lib": ["packages/lib/src/index.ts"],
-      "@repo/lib/*": ["packages/lib/src/*"],
-      "@repo/ui/*": ["packages/ui/src/*"],
-      "@repo/db/*": ["packages/db/src/*"],
-      "@web/*": ["apps/web/src/*"],
-      "@api/*": ["apps/api/src/*"],
-      "@apps/*": ["apps/*/src"]
+      "@repo/typescript-config": ["./packages/typescript-config/tsconfig.base.json"],
+      "@repo/eslint-config": ["./packages/eslint-config/base.js"],
+      "@repo/lib": ["./packages/lib/src/index.ts"],
+      "@repo/lib/*": ["./packages/lib/src/*"],
+      "@repo/ui/*": ["./packages/ui/src/*"],
+      "@web/*": ["./apps/web/src/*"],
+      "@api/*": ["./apps/api/src/*"],
+      "@apps/*": ["./apps/*/src"]
     }
   },
   "exclude": ["node_modules", "dist"]

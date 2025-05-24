@@ -1,7 +1,7 @@
-import { TenantProvider } from '@/providers/TenantProvider';
+import { TenantProvider } from '@/providers/TenantProvider.tsx';
 import '@/styles/globals.css';
 import { Theme, ThemePanel } from '@radix-ui/themes';
-import { Metadata } from 'next';
+import { Metadata, cookies } from 'next';
 import { cookies } from 'next/headers';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -15,15 +15,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'OrchestrAI – Build Multi-Agent Apps with Clicks, Not Code',
     description: 'Create powerful AI workflows using a visual, no-code interface.',
-    images: ['/orchestrai_social_preview.png'],
-    url: 'https://app.orchestrai.ai',
+    images: ['/hirewise_social_preview.png'],
+    url: 'https://app.hirewise.ai',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'OrchestrAI – Build Multi-Agent Apps with Clicks, Not Code',
     description: 'Create powerful AI workflows using a visual, no-code interface.',
-    images: ['/orchestrai_social_preview.png'],
+    images: ['/hirewise_social_preview.png'],
   },
 };
 

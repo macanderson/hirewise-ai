@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 // ESLint flat configuration for web package
-import sharedConfig from '@repo/eslint-config/base';
+import sharedConfig from './../../packages/eslint-config/base.js';
 import { FlatCompat } from '@eslint/eslintrc';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
