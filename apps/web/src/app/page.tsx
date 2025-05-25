@@ -1,3 +1,5 @@
+'use server';
+
 import { Box, Button, Container, Heading, Section, Separator, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
