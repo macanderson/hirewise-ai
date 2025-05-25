@@ -1,8 +1,8 @@
-import { TenantProvider } from '@/providers/TenantProvider.tsx';
+// import { TenantProvider } from '@/providers/TenantProvider.tsx';
 import '@/styles/globals.css';
 import { Theme, ThemePanel } from '@radix-ui/themes';
-import { Metadata, cookies } from 'next';
-import { cookies } from 'next/headers';
+import { Metadata } from 'next';
+// import { cookies } from 'next/headers';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -28,18 +28,18 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const tenantId = cookieStore.get('X-Tenant-Id')?.value || '';
+  // const cookieStore = await cookies();
+  // const tenantId = cookieStore.get('X-Tenant-Id')?.value || '';
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Theme appearance="light" accentColor="violet">
-          <TenantProvider tenantId={tenantId}>
-            {children}
-            <ThemePanel />
-            <Toaster />
-          </TenantProvider>
+          {/* <TenantProvider tenantId={tenantId}> */}
+          {children}
+          <ThemePanel />
+          <Toaster />
+          {/* </TenantProvider> */}
         </Theme>
       </body>
     </html>
