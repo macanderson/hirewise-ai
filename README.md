@@ -1,4 +1,4 @@
-# OrchestrAI
+# HireWise.ai
 
 OrchestrAI enables users to create RAG enabled AI agents deployed as chatbots on public sites.
 
