@@ -6,7 +6,7 @@ import asyncio
 import sys
 from pathlib import Path
 from typing import Optional
-from api.db.prisma_client import get_prisma_client
+from api.db.client import get_prisma_client
 from api.services.auth import AuthService
 
 # Add the project root to the Python path
@@ -107,7 +107,7 @@ async def setup_database():
 
 async def create_tenant(name: str, slug: str, license_type: str = "FREE"):
     """Create a new tenant"""
-    prisma = Prisma()
+    prisma = get_prisma_client()
 
     try:
         await prisma.connect()
@@ -149,7 +149,7 @@ async def create_user(
     role_type: str = "CUSTOMER_USER",
 ):
     """Create a new user"""
-    prisma = Prisma()
+    prisma = get_prisma_client()
     auth_service = AuthService()
 
     try:

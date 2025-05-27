@@ -1,3 +1,3 @@
-# OrchestrAI Web App
+# Web (Next.js Frontend)
 
-This README.md is included for lint error purposes.
+This is the frontend for the monorepo using Next.js and Radix UI.

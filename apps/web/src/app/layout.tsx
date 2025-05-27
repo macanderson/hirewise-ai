@@ -7,6 +7,7 @@ import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
   title: 'OrchestrAI - AI-powered agents for your business',
   description: 'AI-powered agent generation for your business',
   icons: {

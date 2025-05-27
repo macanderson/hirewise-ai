@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hirewise-api"
+name = "api"
 version = "0.1.0"
 description = "FastAPI services for HireWise.ai"
 authors = ["Mac Name <mac@macanderson.com>"]
@@ -24,7 +24,6 @@ bcrypt = "^4.3.0"
 tomlkit = "^0.13.2"
 pydantic = {extras = ["email"], version = "^2.11.5"}
 python-multipart = "^0.0.20"
-prisma = "^0.15.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -32,6 +31,8 @@ pytest = "^8.0.0"
 black = "^24.0.0"
 flake8 = "^7.0.0"
 mypy = "^1.0.0"
+prisma = "*"
+
 
 [tool.poetry.scripts]
 start = "src.api.main:start"

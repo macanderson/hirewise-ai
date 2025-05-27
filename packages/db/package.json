@@ -1,0 +1,20 @@
+{
+  "name": "@repo/db",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "6.8.2"
+  },
+  "prisma": {
+    "schema": "schema.prisma"
+  },
+  "devDependencies": {
+    "prisma": "6.8.2",
+    "typescript": "^5.8.3"
+  }
+}

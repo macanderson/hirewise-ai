@@ -4,8 +4,8 @@ import logging
 import numpy as np
 from sentence_transformers.SentenceTransformer import SentenceTransformer
 
-from ..core.config import settings
-from ..db.prisma_client import get_prisma_client
+from api.core.config import settings
+from api.db.client import get_prisma_client
 
 logger = logging.getLogger(__name__)
 
