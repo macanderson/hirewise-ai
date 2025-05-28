@@ -1,4 +1,4 @@
-import { Heading, Button, Text } from '@radix-ui/themes';
+import { Button, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import { Logo } from './logo';
 
