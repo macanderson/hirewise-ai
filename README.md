@@ -1,8 +1,4 @@
-# hirewise.ai
-
-hirewise.ai enables users to create RAG enabled AI agents deployed as chatbots on public sites.
-
-## Tech Stack
+# AI Agent Platform
 
 - 🤖 Turborepo
 - Python 3.13 FastAPI backend
