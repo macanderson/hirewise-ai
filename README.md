@@ -32,22 +32,25 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
    - PNPM
 
 2. **Installation**
+
    ```bash
    # Clone the repository
    git clone https://github.com/yourusername/hirewise.git
-   cd hirewise
+   cd hirewise-ai
 
    # Install dependencies
    pnpm install
    ```
 
 3. **Development**
+
    ```bash
    # Start the development server
    pnpm dev
    ```
 
 4. **Build**
+
    ```bash
    # Build all packages and applications
    pnpm build
@@ -56,6 +59,7 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
 ## Documentation
 
 Detailed documentation is available in the `/docs` directory:
+
 - [Architecture Overview](/docs/architecture.md)
 - [API Reference](/docs/api.md)
 - [Component Library](/docs/components.md)
