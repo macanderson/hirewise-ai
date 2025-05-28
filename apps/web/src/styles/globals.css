@@ -1,87 +1,264 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'radix-themes-tw';
+
 @import '@radix-ui/themes/styles.css';
-@import '@/styles/fonts.css';
+@import './typography.css';
 
-:root {
-  /* Radix UI Theme Colors */
-  --color-background: var(--gray-1);
-  --color-foreground: var(--gray-12);
+.radix-themes {
+  /* Configure custom fonts for Radix UI themes */
+  --default-font-family: var(--font-aeonik-fono), sans-serif;
+  --heading-font-family: var(--font-aeonik-sans), sans-serif;
+  --code-font-family: 'hirewise-code', monospace;
+  --strong-font-family: var(--font-aeonik-fono), sans-serif;
+  --em-font-family: var(--font-aeonik-fono), sans-serif;
+  --quote-font-family: var(--font-aeonik-fono), sans-serif;
+}
 
-  /* Typography */
-  --font-family: aeonik-mono, sans-serif;
-  --font-size: 16px;
-  --font-line-height: 1.5;
+.radix-themes {
+  --font-size-1: calc(12px * var(--scaling));
+  --font-size-2: calc(14px * var(--scaling));
+  --font-size-3: calc(16px * var(--scaling));
+  --font-size-4: calc(18px * var(--scaling));
+  --font-size-5: calc(20px * var(--scaling));
+  --font-size-6: calc(24px * var(--scaling));
+  --font-size-7: calc(28px * var(--scaling));
+  --font-size-8: calc(35px * var(--scaling));
+  --font-size-9: calc(60px * var(--scaling));
 
-  /* Font Features */
-  font-feature-settings: 'kern' 1, 'liga' 1;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600; /* Using semibold for headings */
+
+  --line-height-1: calc(16px * var(--scaling));
+  --line-height-2: calc(20px * var(--scaling));
+  --line-height-3: calc(24px * var(--scaling));
+  --line-height-4: calc(26px * var(--scaling));
+  --line-height-5: calc(28px * var(--scaling));
+  --line-height-6: calc(30px * var(--scaling));
+  --line-height-7: calc(36px * var(--scaling));
+  --line-height-8: calc(40px * var(--scaling));
+  --line-height-9: calc(60px * var(--scaling));
+
+  --letter-spacing-1: 0.0025em;
+  --letter-spacing-2: 0em;
+  --letter-spacing-3: 0em;
+  --letter-spacing-4: -0.0025em;
+  --letter-spacing-5: -0.005em;
+  --letter-spacing-6: -0.00625em;
+  --letter-spacing-7: -0.0075em;
+  --letter-spacing-8: -0.01em;
+  --letter-spacing-9: -0.025em;
+
+  /* default values */
+  --default-font-size: var(--font-size-3); /* Same size used for `<Text size="3">` */
+  --default-font-style: normal;
+  --default-font-weight: var(--font-weight-regular);
+  --default-line-height: 1.5; /* Equivalent to the line-height used for `<Text size="3">` 16px * 1.5 = 24px */
+  --default-letter-spacing: 0em;
+  --default-leading-trim-start: 0.42em;
+  --default-leading-trim-end: 0.36em;
+
+  /* Heading - using semibold Aeonik Sans */
+  --heading-font-size-adjust: 1;
+  --heading-font-style: normal;
+  --heading-font-weight: 600; /* semibold */
+  --heading-leading-trim-start: var(--default-leading-trim-start);
+  --heading-leading-trim-end: var(--default-leading-trim-end);
+  --heading-letter-spacing: -0.01em;
+
+  --heading-line-height-1: calc(16px * var(--scaling));
+  --heading-line-height-2: calc(18px * var(--scaling));
+  --heading-line-height-3: calc(22px * var(--scaling));
+  --heading-line-height-4: calc(24px * var(--scaling));
+  --heading-line-height-5: calc(26px * var(--scaling));
+  --heading-line-height-6: calc(30px * var(--scaling));
+  --heading-line-height-7: calc(36px * var(--scaling));
+  --heading-line-height-8: calc(40px * var(--scaling));
+  --heading-line-height-9: calc(60px * var(--scaling));
+
+  /* Code */
+  --code-font-size-adjust: 0.95;
+  --code-font-style: normal;
+  --code-font-weight: inherit;
+  --code-letter-spacing: -0.007em;
+  --code-padding-top: 0.1em;
+  --code-padding-bottom: 0.1em;
+  --code-padding-left: 0.25em;
+  --code-padding-right: 0.25em;
+
+  /* Strong */
+  --strong-font-size-adjust: 1;
+  --strong-font-style: inherit;
+  --strong-font-weight: var(--font-weight-medium); /* medium weight for strong */
+  --strong-letter-spacing: 0em;
+
+  /* Em */
+  --em-font-size-adjust: 1.18;
+  --em-font-style: italic;
+  --em-font-weight: inherit;
+  --em-letter-spacing: -0.025em;
+
+  /* Quote */
+  --quote-font-size-adjust: 1.18;
+  --quote-font-style: italic;
+  --quote-font-weight: inherit;
+  --quote-letter-spacing: -0.025em;
+
+  /* Tabs */
+  --tab-active-letter-spacing: -0.01em;
+  --tab-active-word-spacing: 0em;
+  --tab-inactive-letter-spacing: 0em;
+  --tab-inactive-word-spacing: 0em;
+}
+
+.radix-themes {
+  overflow-wrap: break-word;
+  font-family: var(--default-font-family);
+  font-size: var(--default-font-size);
+  font-weight: var(--default-font-weight);
+  font-style: var(--default-font-style);
+  line-height: var(--default-line-height);
+  letter-spacing: var(--default-letter-spacing);
+  text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  :root,
-  .light,
-  .dark,
-  .radix-themes-dark,
-  .dark-theme,
-  .radix-themes-light,
-  .radix-themes-system,
-  .system-theme,
-  .system,
-  .radix-themes,
-  .light-theme {
-    --default-font-family: aeonik-mono, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  /* Typography enhancements */
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  text-decoration-skip-ink: auto;
+
+  /* Better word wrapping and hyphenation */
+  word-break: break-word;
+  hyphens: auto;
+
+  /* Improved paragraph spacing */
+  & p {
+    margin-block: 1.5em;
   }
 
-  @supports (color: color(display-p3 1 1 1)) {
-    @media (color-gamut: p3) {
-      :root,
-      .light,
-      .light-theme {
-        --violet-1: oklch(99.3% 0.0032 296.3);
-        --violet-2: oklch(98.3% 0.0087 296.3);
-        --violet-3: oklch(96.1% 0.0207 296.3);
-        --violet-4: oklch(93.3% 0.0376 296.3);
-        --violet-5: oklch(90.2% 0.0535 296.3);
-        --violet-6: oklch(86.2% 0.0691 296.3);
-        --violet-7: oklch(80.5% 0.0883 296.3);
-        --violet-8: oklch(73.1% 0.1167 296.3);
-        --violet-9: oklch(51.9% 0.1703 296.3);
-        --violet-10: oklch(47% 0.1602 296.3);
-        --violet-11: oklch(51.2% 0.1602 296.3);
-        --violet-12: oklch(31.7% 0.0997 296.3);
+  /* Better list presentation */
+  & ul,
+  & ol {
+    padding-inline-start: 1.5em;
+    margin-block: 1.2em;
+  }
 
-        --violet-a1: color(display-p3 0.349 0.0235 0.6745 / 0.012);
-        --violet-a2: color(display-p3 0.302 0.0235 0.8627 / 0.028);
-        --violet-a3: color(display-p3 0.1373 0.0039 0.9373 / 0.059);
-        --violet-a4: color(display-p3 0.2235 0.0039 0.9294 / 0.106);
-        --violet-a5: color(display-p3 0.2078 0.0039 0.9255 / 0.153);
-        --violet-a6: color(display-p3 0.1882 0.0039 0.8549 / 0.212);
-        --violet-a7: color(display-p3 0.1647 0.0039 0.7725 / 0.291);
-        --violet-a8: color(display-p3 0.1765 0 0.7373 / 0.4);
-        --violet-a9: color(display-p3 0.1804 0 0.5922 / 0.695);
-        --violet-a10: color(display-p3 0.1647 0 0.5098 / 0.742);
-        --violet-a11: color(display-p3 0.1647 0 0.5529 / 0.691);
-        --violet-a12: color(display-p3 0.0745 0 0.2471 / 0.855);
+  /* Enhanced heading hierarchy - using semibold Aeonik Sans */
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    font-family: var(--heading-font-family);
+    font-weight: 600; /* semibold */
+    line-height: 1.1;
+    margin-block: 1.5em 0.5em;
+  }
 
-        --violet-contrast: #fff;
-        --violet-surface: color(display-p3 0.9725 0.9647 0.9961 / 0.8);
-        --violet-indicator: oklch(51.9% 0.1703 296.3);
-        --violet-track: oklch(51.9% 0.1703 296.3);
-      }
-    }
+  /* Better link aesthetics */
+  & a {
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.2em;
+    transition: all 0.2s ease;
+  }
+
+  & a:hover {
+    text-decoration-thickness: 0.2em;
+  }
+
+  /* Smart quotes and dashes */
+  hanging-punctuation: first;
+
+  /* Better spacing for inline elements */
+  & code,
+  & kbd {
+    margin-inline: 0.2em;
+  }
+
+  /* Optimized blockquotes */
+  & blockquote {
+    margin-inline: 0;
+    padding-inline-start: 1em;
+    border-inline-start: 3px solid currentColor;
+    font-style: italic;
   }
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--default-font-family);
-  font-size: var(--font-size);
-  line-height: var(--font-line-height);
+/* Legacy font-face declarations for backward compatibility */
+@font-face {
+  font-family: 'hirewise-display';
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  descent-override: 35%;
+  ascent-override: 105%;
+  font-display: swap;
 }
 
-body,
-.rt-ThemeRoot {
-  font-family: var(--default-font-family) !important;
+@font-face {
+  font-family: 'hirewise-display';
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  descent-override: 35%;
+  ascent-override: 105%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'hirewise-body';
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  descent-override: 35%;
+  ascent-override: 105%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'hirewise-body';
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  descent-override: 35%;
+  ascent-override: 105%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'hirewise-code';
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  descent-override: 35%;
+  ascent-override: 105%;
+  font-display: swap;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: aeonik-fono;
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://www.datocms-assets.com/135497/1742848900-aeonikfonoprovf.woff2')
+    format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: aeonik-mono;
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://www.datocms-assets.com/135497/1742845938-aeonikmonoprovf.woff2')
+    format('truetype');
 }

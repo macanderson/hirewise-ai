@@ -9,13 +9,19 @@ class Settings(BaseSettings):
     This class is used to store the settings for the application.
     """
 
-    PROJECT_NAME: str = "OrchestrAI"
+    PROJECT_NAME: str = "HireWise.ai"
     API_V1_STR: str = "/api/v1"
+    PROJECT_DESCRIPTION: str = "API for HireWise.ai"
+    PROJECT_VERSION: str = "0.0.1"
+    PROJECT_LICENSE: str = "Proprietary"
+    PROJECT_LICENSE_URL: str = "https://hirewise.ai/license"
+    PROJECT_URL: str = "https://hirewise.ai"
 
     # CORS
     CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "https://docuchat.vercel.app",
+        "http://localhost:3000",  # Local development
+        "https://app.hirewise.ai",  # Production
+        "https://hirewise.ai",  # Production domain
     ]  # noqa: E501
 
     # Security

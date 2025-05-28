@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for OrchestrAI database initialization
+Setup script for hirewise.ai database initialization
 """
 import asyncio
 import sys
@@ -196,7 +196,7 @@ def main():
     """Main entry point for the setup script"""
     import argparse
 
-    parser = argparse.ArgumentParser(description="OrchestrAI Database Setup")
+    parser = argparse.ArgumentParser(description="hirewise.ai Database Setup")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
 
     # Setup command

@@ -1,0 +1,87 @@
+{
+  "navigation": [
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "href": "/dashboard",
+      "icon": "dashboard",
+      "children": []
+    },
+    {
+      "id": "agents",
+      "label": "AI Agents",
+      "icon": "robot",
+      "children": [
+        {
+          "id": "agents-list",
+          "label": "All Agents",
+          "href": "/dashboard/agents",
+          "icon": "list"
+        },
+        {
+          "id": "agents-create",
+          "label": "Create Agent",
+          "href": "/dashboard/agents/create",
+          "icon": "plus"
+        },
+        {
+          "id": "agents-templates",
+          "label": "Templates",
+          "href": "/dashboard/agents/templates",
+          "icon": "template"
+        }
+      ]
+    },
+    {
+      "id": "workflows",
+      "label": "Workflows",
+      "icon": "workflow",
+      "children": [
+        {
+          "id": "workflows-list",
+          "label": "All Workflows",
+          "href": "/dashboard/workflows",
+          "icon": "list"
+        },
+        {
+          "id": "workflows-create",
+          "label": "Create Workflow",
+          "href": "/dashboard/workflows/create",
+          "icon": "plus"
+        }
+      ]
+    },
+    {
+      "id": "analytics",
+      "label": "Analytics",
+      "href": "/dashboard/analytics",
+      "icon": "chart",
+      "children": []
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "icon": "settings",
+      "children": [
+        {
+          "id": "settings-profile",
+          "label": "Profile",
+          "href": "/dashboard/settings/profile",
+          "icon": "user"
+        },
+        {
+          "id": "settings-billing",
+          "label": "Billing",
+          "href": "/dashboard/settings/billing",
+          "icon": "credit-card"
+        },
+        {
+          "id": "settings-api",
+          "label": "API Keys",
+          "href": "/dashboard/settings/api",
+          "icon": "key"
+        }
+      ]
+    }
+  ]
+}

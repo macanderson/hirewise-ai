@@ -1,8 +1,21 @@
+"""
+Auth API Routes
+--------------------------------
+- /api/v1/auth/sign-up  # POST
+- /api/v1/auth/login  # POST
+- /api/v1/auth/logout  # POST
+- /api/v1/auth/refresh  # POST
+- /api/v1/auth/change-password  # POST
+- /api/v1/auth/request-password-reset  # POST
+- /api/v1/auth/reset-password  # POST
+- /api/v1/auth/me  # GET
+
+"""
 import logging
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, StrEnum
 from api.services.auth import AuthService, get_current_user
 
 logger = logging.getLogger(__name__)
@@ -16,77 +29,109 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 class Token(BaseModel):
+    """
+    Token model
+    """
     access_token: str
     token_type: str
 
 
 class TokenData(BaseModel):
+    """
+    Token data model
+    """
     email: Optional[str] = None
 
 
+class OrganizationSize(StrEnum):
+    """
+    Organization size options for trial sign-up
+    """
+    SMALL = "0-1 Employees"
+    MEDIUM = "2-9 Employees"
+    LARGE = "10-49 Employees"
+    ENTERPRISE = "50-249 Employees"
+    GIANT = "250+ Employees"
+
+
 class UserRegister(BaseModel):
+    """
+    User registration model
+    """
     email: EmailStr
     password: str
+    organization_name: str
+    organization_size: int
     first_name: Optional[str] = None
     last_name: Optional[str] = None
 
 
 class UserLogin(BaseModel):
+    """
+    User login model
+    """
     email: EmailStr
     password: str
 
 
 class PasswordChange(BaseModel):
+    """
+    Password change model
+    """
     current_password: str
     new_password: str
 
 
 class PasswordResetRequest(BaseModel):
+    """
+    Password reset request model
+    """
     email: EmailStr
 
 
 class PasswordReset(BaseModel):
+    """
+    Password reset model
+    """
     reset_token: str
     new_password: str
 
 
 class UserResponse(BaseModel):
+    """
+    User response model
+    """
     id: str
-    email: str
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
     tenant_id: str
+    email: str
+    person_name: str
+    organization_name: str
+    organization_size: OrganizationSize
 
 
-@router.post("/register", response_model=Token)
+@router.post("/sign-up", response_model=Token)
 async def register(data: UserRegister, request: Request):
     """Register a new user"""
-    tenant_id = request.headers.get("X-Tenant-Id")
-
-    if not tenant_id:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="X-Tenant-Id header is required"
-        )
+    tenant_id = None
 
     # Connect Prisma
     await auth_service.prisma.connect()
 
     try:
-        # Check if tenant exists
-        tenant = await auth_service.prisma.tenant.find_unique(
-            where={"id": tenant_id}
+        # If tenant_id provided, verify it exists
+
+        tenant = await auth_service.prisma.tenant.create(
+            data={
+                "name": f"{data.organization_name or (data.first_name + ' ' + data.last_name) or data.email} Organization",  # noqa: E501
+                "deleted": False
+            }
         )
+        tenant_id = tenant.id
 
-        if not tenant or tenant.deleted:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Tenant not found"
-            )
-
-        # Get default role for new users (optional)
+        # Get role - use CUSTOMER_ADMIN if no tenant_id was provided
+        role_type = "CUSTOMER_ADMIN" if not request.headers.get("X-Tenant-Id") else "CUSTOMER_USER"  # noqa: E501
         default_role = await auth_service.prisma.userrole.find_first(
-            where={"type": "CUSTOMER_USER"}
+            where={"type": role_type}
         )
 
         # Register user
@@ -124,14 +169,6 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     request: Request = None
 ):
-    """Login a user"""
-    tenant_id = request.headers.get("X-Tenant-Id")
-
-    if not tenant_id:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="X-Tenant-Id header is required"
-        )
 
     # Get client info
     ip_address = request.client.host if request.client else None
@@ -145,8 +182,8 @@ async def login(
         result = await auth_service.login(
             email=form_data.username,
             password=form_data.password,
-            tenant_id=tenant_id,
             ip_address=ip_address,
+            tenant_id=None,
             user_agent=user_agent
         )
 
@@ -273,14 +310,6 @@ async def request_password_reset(
     data: PasswordResetRequest,
     request: Request
 ):
-    """Request a password reset"""
-    tenant_id = request.headers.get("X-Tenant-Id")
-
-    if not tenant_id:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="X-Tenant-Id header is required"
-        )
 
     # Connect Prisma
     await auth_service.prisma.connect()
@@ -288,7 +317,6 @@ async def request_password_reset(
     try:
         reset_token = await auth_service.request_password_reset(
             email=data.email,
-            tenant_id=tenant_id
         )
 
         # In a real application, you would send this token via email

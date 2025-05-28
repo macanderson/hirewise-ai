@@ -1,7 +1,9 @@
 """
-Database client module for managing Prisma connections and transactions.
+Database client module for managing Prisma
+connections and transactions.
 
-This module provides a singleton Prisma client and utilities for database operations.
+This module provides a singleton Prisma client and utilities
+for database operations.
 """
 
 import logging
@@ -10,12 +12,12 @@ from functools import lru_cache
 from typing import AsyncGenerator, Optional
 
 from prisma import Prisma
-from prisma.types import TransactionManager
 
 logger = logging.getLogger(__name__)
 
 # Global Prisma client instance
 _prisma_client: Optional[Prisma] = None
+
 
 @lru_cache()
 def get_prisma_client() -> Prisma:
@@ -36,7 +38,7 @@ def get_prisma_client() -> Prisma:
 
 
 @asynccontextmanager
-async def get_database_connection() -> AsyncGenerator[Prisma, None]:
+async def get_database_connection() -> AsyncGenerator[Prisma, None]:  # noqa: E501
     """
     Context manager for handling Prisma client connections.
 
@@ -67,7 +69,7 @@ async def get_database_connection() -> AsyncGenerator[Prisma, None]:
 
 
 @asynccontextmanager
-async def get_database_transaction() -> AsyncGenerator[TransactionManager, None]:
+async def get_database_transaction() -> AsyncGenerator[Prisma, None]:
     """
     Context manager for database transactions.
 
@@ -88,10 +90,10 @@ async def get_database_transaction() -> AsyncGenerator[TransactionManager, None]
         await client.connect()
         logger.debug("Connected to database for transaction")
 
-    async with client.tx() as transaction:
+    async with client.tx() as tx:
         logger.debug("Started database transaction")
         try:
-            yield transaction
+            yield tx
             logger.debug("Transaction completed successfully")
         except Exception as e:
             logger.error(f"Transaction failed: {e}")
