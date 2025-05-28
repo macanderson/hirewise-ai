@@ -49,13 +49,13 @@ const aeonikFono = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
-  title: 'OrchestrAI - AI-powered agents for your business',
+  title: 'hirewise.ai - AI-powered agents for your business',
   description: 'AI-powered agent generation for your business',
   icons: {
     icon: [{ url: '/favicon.ico' }, { url: '/favicon.png', sizes: '32x32' }],
   },
   openGraph: {
-    title: 'OrchestrAI – Build Multi-Agent Apps with Clicks, Not Code',
+    title: 'hirewise.ai – Build Multi-Agent Apps with Clicks, Not Code',
     description: 'Create powerful AI workflows using a visual, no-code interface.',
     images: ['/hirewise_social_preview.png'],
     url: 'https://app.hirewise.ai',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OrchestrAI – Build Multi-Agent Apps with Clicks, Not Code',
+    title: 'hirewise.ai – Build Multi-Agent Apps with Clicks, Not Code',
     description: 'Create powerful AI workflows using a visual, no-code interface.',
     images: ['/hirewise_social_preview.png'],
   },

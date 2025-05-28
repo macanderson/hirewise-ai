@@ -1,6 +1,6 @@
 # hirewise.ai - AI Assistant for Resruiters
 
-Build powerful AI workflows using a visual, no-code interface. OrchestrAI helps you create and manage multi-agent applications with ease.
+Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps you create and manage multi-agent applications with ease.
 
 ## Features
 
@@ -34,8 +34,8 @@ Build powerful AI workflows using a visual, no-code interface. OrchestrAI helps 
 2. **Installation**
    ```bash
    # Clone the repository
-   git clone https://github.com/yourusername/orchestrai.git
-   cd orchestrai
+   git clone https://github.com/yourusername/hirewise.git
+   cd hirewise
 
    # Install dependencies
    pnpm install

@@ -9,6 +9,8 @@ Auth API Routes
 - /api/v1/auth/request-password-reset  # POST
 - /api/v1/auth/reset-password  # POST
 - /api/v1/auth/me  # GET
+- /api/v1/auth/update-profile  # PATCH
+- /api/v1/auth/confirm-email  # GET
 
 """
 import logging
@@ -95,6 +97,16 @@ class PasswordReset(BaseModel):
     """
     reset_token: str
     new_password: str
+
+
+class UserProfileUpdate(BaseModel):
+    """
+    User profile update model
+    """
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    organization_name: Optional[str] = None
 
 
 class UserResponse(BaseModel):
@@ -370,6 +382,109 @@ async def reset_password(data: PasswordReset):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Password reset failed"
+        )
+    finally:
+        await auth_service.prisma.disconnect()
+
+
+@router.patch("/update-profile", response_model=UserResponse)
+async def update_profile(
+    data: UserProfileUpdate,
+    current_user=Depends(get_current_user)
+):
+    """Update user profile information"""
+    # Connect Prisma
+    await auth_service.prisma.connect()
+
+    try:
+        # If email is being changed, we need to send a confirmation email
+        email_confirmation_required = False
+        if data.email and data.email != current_user.email:
+            email_confirmation_required = True
+
+        result = await auth_service.update_user_profile(
+            user_id=current_user.id,
+            first_name=data.first_name,
+            last_name=data.last_name,
+            email=data.email,
+            organization_name=data.organization_name
+        )
+
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Profile update failed"
+            )
+
+        # If email was changed, send confirmation email
+        if email_confirmation_required:
+            confirmation_token = await auth_service.generate_email_confirmation_token(
+                user_id=current_user.id,
+                new_email=data.email
+            )
+
+            # TODO: Send email confirmation email
+            logger.info(
+                f"Email confirmation token for {data.email}: {confirmation_token}"
+            )
+
+        return UserResponse(
+            id=result.id,
+            tenant_id=result.tenantId,
+            email=result.email,
+            person_name=f"{result.firstName or ''} {result.lastName or ''}".strip(),
+            organization_name=result.tenant.name if result.tenant else "",
+            organization_size=OrganizationSize.SMALL  # Default value, adjust as needed
+        )
+
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Profile update error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Profile update failed"
+        )
+    finally:
+        await auth_service.prisma.disconnect()
+
+
+@router.get("/confirm-email")
+async def confirm_email(
+    token: str,
+    email: str
+):
+    """Confirm email address change using URL parameters"""
+    # Connect Prisma
+    await auth_service.prisma.connect()
+
+    try:
+        success = await auth_service.confirm_email_change(
+            confirmation_token=token,
+            email=email
+        )
+
+        if not success:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid or expired confirmation token"
+            )
+
+        return {"message": "Email confirmed successfully"}
+
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        logger.error(f"Email confirmation error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Email confirmation failed"
         )
     finally:
         await auth_service.prisma.disconnect()
