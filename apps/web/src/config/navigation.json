@@ -15,19 +15,19 @@
         {
           "id": "agents-list",
           "label": "All Agents",
-          "href": "/dashboard/agents",
+          "href": "/agents",
           "icon": "list"
         },
         {
           "id": "agents-create",
           "label": "Create Agent",
-          "href": "/dashboard/agents/create",
+          "href": "/agents/create",
           "icon": "plus"
         },
         {
           "id": "agents-templates",
           "label": "Templates",
-          "href": "/dashboard/agents/templates",
+          "href": "/agents/templates",
           "icon": "template"
         }
       ]
@@ -40,13 +40,13 @@
         {
           "id": "workflows-list",
           "label": "All Workflows",
-          "href": "/dashboard/workflows",
+          "href": "/workflows",
           "icon": "list"
         },
         {
           "id": "workflows-create",
           "label": "Create Workflow",
-          "href": "/dashboard/workflows/create",
+          "href": "/workflows/create",
           "icon": "plus"
         }
       ]
@@ -54,7 +54,7 @@
     {
       "id": "analytics",
       "label": "Analytics",
-      "href": "/dashboard/analytics",
+      "href": "/analytics",
       "icon": "chart",
       "children": []
     },
@@ -66,19 +66,19 @@
         {
           "id": "settings-profile",
           "label": "Profile",
-          "href": "/dashboard/settings/profile",
+          "href": "/settings/profile",
           "icon": "user"
         },
         {
           "id": "settings-billing",
           "label": "Billing",
-          "href": "/dashboard/settings/billing",
+          "href": "/settings/billing",
           "icon": "credit-card"
         },
         {
           "id": "settings-api",
           "label": "API Keys",
-          "href": "/dashboard/settings/api",
+          "href": "/settings/api",
           "icon": "key"
         }
       ]

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Text, Button } from '@radix-ui/themes';
 import navigationConfig from '@/config/navigation.json';
+import { Logo } from '@/components/ui/logo';
 
 interface NavigationItem {
   id: string;
@@ -86,6 +87,11 @@ export function Sidebar({ className }: SidebarProps) {
 
   return (
     <aside className={`w-64 bg-white border-r border-gray-200 h-full ${className || ''}`}>
+      <div className="p-4 flex justify-center">
+        <Link href="/dashboard">
+          <Logo width={150} height={60} />
+        </Link>
+      </div>
       <div className="p-4">
         <nav className="space-y-2">
           {navigationConfig.navigation.map(item => renderNavigationItem(item))}

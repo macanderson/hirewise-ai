@@ -110,7 +110,7 @@ export default function LoginPage() {
               </Form.Message>
             </Form.Field>
 
-            <Form.Field name="tenantId">
+            {/* <Form.Field name="tenantId">
               <Form.Label>
                 <Text size="2" weight="medium">
                   Tenant ID (Optional)
@@ -124,10 +124,14 @@ export default function LoginPage() {
                   className="w-full px-3 py-2 text-base bg-white border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 />
               </Form.Control>
-            </Form.Field>
+            </Form.Field> */}
 
             <Form.Submit asChild>
-              <Button size="3" style={{ width: '100%' }} disabled={isLoading}>
+              <Button
+                size="3"
+                style={{ width: '100%', padding: '1rem', marginTop: '10px' }}
+                disabled={isLoading}
+              >
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
             </Form.Submit>

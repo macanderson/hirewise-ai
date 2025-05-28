@@ -96,9 +96,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <meta name="theme-color" content="#ffffff"></meta>
       </head>
       <body suppressHydrationWarning className="antialiased min-h-screen flex flex-col">
-        <Theme appearance="light" accentColor="yellow" radius="full" scaling="110%">
+        <Theme
+          appearance="light"
+          accentColor="yellow"
+          radius="full"
+          scaling="110%"
+          panelBackground="translucent"
+        >
           <div className="flex flex-col min-h-screen">{children}</div>
-          <ThemePanel />
           <Toaster />
         </Theme>
       </body>

@@ -8,9 +8,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       {/* Header with logo */}
       <Container className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-start pt-8 pb-4">
-          <Link href="/">
+          {/* <Link href="/">
             <Logo width={150} height={50} />
-          </Link>
+          </Link> */}
         </div>
 
         {/* Main content area */}
