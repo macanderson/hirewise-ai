@@ -5,6 +5,7 @@ import * as Form from '@radix-ui/react-form';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthManager } from '@/lib/auth';
+import { Logo } from '@/components/ui/logo';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,9 +45,12 @@ export default function LoginPage() {
 
   return (
     <Card size="4" style={{ backgroundColor: 'white', width: '100%' }} variant="surface">
-      <Flex direction="column" gap="4">
-        <Heading size="6" align="center">
-          Sign In
+      <Flex direction="column" gap="4" className="mt-0">
+        <Heading size="6" align="center" mx="0" className="flex flex-col items-center mt-0">
+          <Logo width={250} height={100} className="mb-4 mx-auto" />
+          <Text size="5" weight="medium">
+            Login to your account
+          </Text>
         </Heading>
 
         {error && (

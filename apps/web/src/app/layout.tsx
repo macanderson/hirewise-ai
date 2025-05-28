@@ -1,5 +1,5 @@
 import '@/styles/globals.css';
-import { Theme, ThemePanel } from '@radix-ui/themes';
+import { Theme, ThemePanel, Section } from '@radix-ui/themes';
 import { Metadata } from 'next';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -97,10 +97,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body suppressHydrationWarning className="antialiased min-h-screen flex flex-col">
         <Theme appearance="light" accentColor="yellow" radius="full" scaling="110%">
-          <div className="flex flex-col min-h-screen">
-            {children}
-            <Footer />
-          </div>
+          <div className="flex flex-col min-h-screen">{children}</div>
           <ThemePanel />
           <Toaster />
         </Theme>

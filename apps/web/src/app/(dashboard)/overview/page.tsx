@@ -22,9 +22,13 @@ export default function DashboardPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        const isProduction = process.env.NODE_ENV === 'production';
         if (!AuthManager.isAuthenticated()) {
-          router.push('/login');
-          return;
+          if (isProduction) {
+            router.push('/login');
+            return;
+          }
+          console.warn('User not authenticated in development mode');
         }
 
         const userData = await AuthManager.getCurrentUser();
@@ -32,7 +36,9 @@ export default function DashboardPage() {
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load user data');
         // If there's an auth error, redirect to login
-        router.push('/login');
+        // router.push('/login');
+        console.error('Error checking auth:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load user data');
       } finally {
         setLoading(false);
       }
