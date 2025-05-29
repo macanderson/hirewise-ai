@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """
 
     PROJECT_NAME: str = "HireWise.ai"
-    API_V1_STR: str = "/api/v1"
+    API_V1_STR: str = "/v1"
     PROJECT_DESCRIPTION: str = "API for HireWise.ai"
     PROJECT_VERSION: str = "0.0.1"
     PROJECT_LICENSE: str = "Proprietary"
