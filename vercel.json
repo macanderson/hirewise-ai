@@ -1,6 +1,7 @@
 {
   "version": 2,
   "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "turbo build",
   "outputDirectory": "apps/web/.next",
   "builds": [
     {
@@ -8,14 +9,15 @@
       "use": "@vercel/next"
     },
     {
-      "src": "apps/api/vercel.py",
-      "use": "@vercel/python"
+      "src": "apps/api/**/*.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "apps/api/vercel.py"
+      "dest": "apps/api/$1"
     },
     {
       "src": "/(.*)",
