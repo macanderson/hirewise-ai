@@ -49,12 +49,37 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
    pnpm dev
    ```
 
-4. **Build**
+4. **Build and Deploy**
+
+   There are two deployment options available:
+
+   ### Full Stack Deployment (Default)
+
+   The default deployment includes both the Next.js frontend and Python FastAPI backend as serverless functions.
 
    ```bash
    # Build all packages and applications
    pnpm build
+
+   # Deploy to Vercel
+   vercel
    ```
+
+   The Python backend will be automatically deployed as serverless functions using Vercel's Python runtime. Make sure your `vercel.json` is properly configured with the Python build settings.
+
+   ### Web-Only Deployment
+
+   For deploying just the Next.js frontend:
+
+   ```bash
+   # Build the web application
+   cd apps/web && pnpm build
+
+   # Deploy using web-only configuration
+   vercel --config vercel-web-only.json
+   ```
+
+   This will deploy only the Next.js application without the Python backend.
 
 ## Documentation
 
