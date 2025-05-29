@@ -1,0 +1,12 @@
+apps/api/
+packages/
+docs/
+scripts/
+.turbo/
+.git/
+.vscode/
+.direnv/
+*.md
+.DS_Store
+.env*
+!.env.example

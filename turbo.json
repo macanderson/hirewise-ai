@@ -3,8 +3,8 @@
   "globalDependencies": ["**/.env.*local", "**/.env", "**/tsconfig.json", "**/package.json"],
   "tasks": {
     "dev": {
-      "dependsOn": ["^dev"],
-      "outputs": [],
+      "cache": false,
+      "persistent": true,
       "env": ["NODE_ENV", "DATABASE_URL", "NEXT_PUBLIC_API_URL"]
     },
     "build": {
@@ -20,6 +20,10 @@
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"],
       "env": ["NODE_ENV", "DATABASE_URL"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

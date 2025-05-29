@@ -1,0 +1,11 @@
+/**
+ * This file is used to define the colors for the app.
+ * It is used to define the colors for the app.
+ * It is used to define the colors for the app.
+ */
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert();
+  }
+}

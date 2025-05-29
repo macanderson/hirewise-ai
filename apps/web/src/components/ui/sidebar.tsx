@@ -88,7 +88,7 @@ export function Sidebar({ className }: SidebarProps) {
   return (
     <aside className={`w-64 bg-white border-r border-gray-200 h-full ${className || ''}`}>
       <div className="p-4 flex justify-center">
-        <Link href="/dashboard">
+        <Link href="/app/dashboard">
           <Logo width={150} height={60} />
         </Link>
       </div>
