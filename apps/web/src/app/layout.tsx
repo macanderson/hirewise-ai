@@ -1,10 +1,9 @@
 import '@/styles/globals.css';
-import { Theme, ThemePanel, Section } from '@radix-ui/themes';
+import { Theme } from '@radix-ui/themes';
 import { Metadata } from 'next';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import localFont from 'next/font/local';
-import Footer from '@/components/ui/footer';
 
 // Aeonik Sans for headings (semibold weight)
 const aeonikSans = localFont({
