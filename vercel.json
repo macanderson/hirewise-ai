@@ -2,7 +2,6 @@
   "version": 2,
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "turbo build",
-  "outputDirectory": "apps/web/.next",
   "builds": [
     {
       "src": "apps/web/package.json",
