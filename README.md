@@ -89,6 +89,7 @@ Detailed documentation is available in the `/docs` directory:
 - [Architecture Overview](/docs/architecture.md)
 - [API Reference](/docs/api.md)
 - [Component Library](/docs/components.md)
+- [Environment Variables](/docs/ENVIRONMENT_VARIABLES.md)
 
 ## Contributing
 
