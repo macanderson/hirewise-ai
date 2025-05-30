@@ -1,0 +1,80 @@
+# Supabase Auth with Prisma Models
+
+This guide explains how to integrate Supabase authentication with your SQL models using Prisma and FastAPI. It also covers where to store your Prisma schema and how to generate Pydantic models.
+
+## Prisma Schema Location
+
+Place your Prisma schema inside the `packages/db` package. This keeps database definitions in a dedicated location that can be shared across apps.
+
+```
+packages/
+  db/
+    schema.prisma
+    package.json
+```
+
+## Generating the Python Client and Pydantic Models
+
+Use the [`prisma-client-py`](https://github.com/RobertCraigie/prisma-client-py) generator in your `schema.prisma` file. The generated client includes Pydantic models for each Prisma model.
+
+```prisma
+generator py {
+  provider = "prisma-client-py"
+  output   = "../../apps/api/src/db/client"
+  recursive_type_depth = "5"
+  interface            = "asyncio"
+}
+```
+
+Run the following commands from the repository root to generate the client and models:
+
+```bash
+pnpm db:generate
+```
+
+This calls the `prisma generate` command defined in `packages/db/package.json` and outputs the client and Pydantic models to `apps/api/src/db/client`.
+
+## FastAPI Usage
+
+Import the generated client and models in your FastAPI services:
+
+```python
+from db.client import Prisma
+from db.client.models import User
+
+prisma = Prisma()
+```
+
+The `User` model (and others) are standard Pydantic models generated directly from the Prisma schema, ensuring your API types stay in sync with the database.
+
+## Supabase Auth Integration
+
+When a user logs in with Supabase, verify the JWT and then create or fetch the corresponding user record in your Prisma-managed database. A simplified service looks like this:
+
+```python
+from supabase import create_client
+from db.client import Prisma
+
+class SupabaseAuthService:
+    def __init__(self, url: str, anon_key: str):
+        self.supabase = create_client(url, anon_key)
+        self.prisma = Prisma()
+
+    async def verify_token(self, token: str):
+        user = self.supabase.auth.get_user(token)
+        return user.user if user and user.user else None
+
+    async def get_or_create_user(self, auth_user: dict, tenant_id: str):
+        existing = await self.prisma.user.find_unique(where={"auth_id": auth_user["id"]})
+        if existing:
+            return existing
+        return await self.prisma.user.create(
+            data={
+                "auth_id": auth_user["id"],
+                "email": auth_user["email"],
+                "tenant_id": tenant_id,
+            }
+        )
+```
+
+This pattern keeps Supabase in charge of authentication while Prisma manages your application data.
