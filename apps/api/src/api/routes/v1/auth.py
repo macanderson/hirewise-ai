@@ -497,8 +497,9 @@ async def get_current_user_info(
     """Get current user info"""
     return UserResponse(
         id=current_user.id,
+        tenant_id=current_user.tenantId,
         email=current_user.email,
-        first_name=current_user.firstName,
-        last_name=current_user.lastName,
-        tenant_id=current_user.tenantId
+        person_name=f"{current_user.firstName or ''} {current_user.lastName or ''}".strip(),
+        organization_name=current_user.tenant.name if current_user.tenant else "",
+        organization_size=OrganizationSize.SMALL  # Default value, adjust as needed
     )
