@@ -17,7 +17,8 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
-from typing import Optional, StrEnum
+from typing import Optional
+from enum import StrEnum
 from api.services.auth import AuthService, get_current_user
 
 logger = logging.getLogger(__name__)

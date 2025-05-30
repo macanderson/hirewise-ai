@@ -1,7 +1,0 @@
-.git/
-.vscode/
-.direnv/
-*.md
-.DS_Store
-.env*
-!.env.example
