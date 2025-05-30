@@ -1,5 +1,4 @@
 from typing import List, Dict, Any
-import os
 import logging
 from openai import OpenAI
 from api.core.config import settings
@@ -10,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class LLMService:
     def __init__(self):
-        self.client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+        self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
         self.model = settings.LLM_MODEL
         self.temperature = settings.LLM_TEMPERATURE
 

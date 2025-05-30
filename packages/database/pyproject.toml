@@ -11,6 +11,14 @@ dependencies = [
     "prisma (>=0.15.0,<0.16.0)"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pylint",
+    "mypy",
+    "flake8"
+]
+
 [tool.poetry]
 packages = [{include = "database", from = "src"}]
 
@@ -21,3 +29,15 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.prisma]
 schema = "prisma/schema.prisma"
+
+[tool.ruff]
+exclude = ["src/database/**"]
+
+[tool.pylint]
+ignore-paths = ["src/database"]
+
+[tool.mypy]
+exclude = ["src/database/"]
+
+[tool.flake8]
+exclude = ["src/database"]

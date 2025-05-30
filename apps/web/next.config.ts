@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  eslint: {
+    // Disable the built-in ESLint processing since we're using a flat config file
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

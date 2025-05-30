@@ -8,6 +8,7 @@
       "@repo/lib": ["./packages/lib/src/index.ts"],
       "@repo/lib/*": ["./packages/lib/src/*"],
       "@repo/ui/*": ["./packages/ui/src/*"],
+      "@repo/database/*": ["./packages/database/src/*"],
       "@web/*": ["./apps/web/src/*"],
       "@api/*": ["./apps/api/src/*"],
       "@apps/*": ["./apps/*/src"]

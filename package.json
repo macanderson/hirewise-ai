@@ -14,11 +14,10 @@
     "@types/node": "^20.17.50",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
-    "concurrently": "^9.1.2",
     "eslint-config-turbo": "^2.5.3"
   },
   "prisma": {
-    "schema": "./packages/db/schema.prisma"
+    "schema": "./packages/database/prisma/schema.prisma"
   },
   "scripts": {
     "build": "turbo run build",
@@ -38,6 +37,6 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }

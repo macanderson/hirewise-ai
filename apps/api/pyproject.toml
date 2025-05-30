@@ -8,7 +8,7 @@ packages = [{ include = "api", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.115.12"
+fastapi = {extras = ["standard"], version = "^0.115.12"}
 uvicorn = { extras = ["standard"], version = "^0.34.2" }
 fastapi-jwt-auth = "^0.5.0"
 beautifulsoup4 = "^4.13.4"
@@ -24,7 +24,7 @@ bcrypt = "^4.3.0"
 tomlkit = "^0.13.2"
 pydantic = {extras = ["email"], version = "^2.11.5"}
 python-multipart = "^0.0.20"
-database = { path = "../../packages/database" }
+database = { path = "../../packages/database", develop = true }
 
 
 [tool.poetry.group.dev.dependencies]

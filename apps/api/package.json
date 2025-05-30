@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "FastAPI services",
   "scripts": {
-    "dev": "fastapi dev",
-    "start": "fastapi run",
-    "build": "fastapi build",
+    "dev": "uvicorn src.api.main:app --reload",
+    "start": "uvicorn src.api.main:app",
+    "build": "poetry build",
     "lint": "ruff check .",
     "format": "ruff format .",
     "test": "pytest"
