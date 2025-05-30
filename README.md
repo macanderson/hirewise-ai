@@ -1,4 +1,4 @@
-# hirewise.ai - AI Assistant for Resruiters
+# hirewise.ai - AI Assistant for Recruiters
 
 Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps you create and manage multi-agent applications with ease.
 
