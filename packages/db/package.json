@@ -2,6 +2,7 @@
   "name": "@repo/db",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",

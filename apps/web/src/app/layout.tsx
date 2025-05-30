@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import localFont from 'next/font/local';
+import { ThemePanel } from '@radix-ui/themes';
 
 // Aeonik Sans for headings (semibold weight)
 const aeonikSans = localFont({
@@ -103,6 +104,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           panelBackground="translucent"
         >
           <div className="flex flex-col min-h-screen">{children}</div>
+          <ThemePanel />
           <Toaster />
         </Theme>
       </body>
