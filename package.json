@@ -8,8 +8,8 @@
     "tools/*"
   ],
   "devDependencies": {
-    "@turbo/gen": "^1.10.12",
-    "turbo": "^1.10.12",
+    "@turbo/gen": "^2.0.0",
+    "turbo": "^2.0.0",
     "prettier": "^3.0.0",
     "@types/node": "^20.17.50",
     "@types/react": "^19.1.5",
