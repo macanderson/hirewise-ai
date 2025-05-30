@@ -5,7 +5,7 @@ import types
 import importlib.util
 from pathlib import Path
 
-os.environ.setdefault("JWT_SECRET_KEY", "test-secret")
+os.environ.setdefault("JWT_SECRET", "test-secret")
 
 # Stub out the Prisma client to avoid requiring a generated client
 dummy_prisma = types.SimpleNamespace(Prisma=object)

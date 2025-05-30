@@ -25,13 +25,18 @@ class Settings(BaseSettings):
     ]  # noqa: E501
 
     # Security
-    JWT_SECRET_KEY: str = os.environ.get("JWT_SECRET_KEY", None)
+    JWT_SECRET: str = os.environ.get("JWT_SECRET", None)
     JWT_ALGORITHM: str = os.environ.get("JWT_ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
     # Database
     DATABASE_URL: str = os.environ.get(
         "DATABASE_URL",
+        None,  # noqa: E501
+    )
+
+    DIRECT_URL: str = os.environ.get(
+        "DIRECT_URL",
         None,  # noqa: E501
     )
 
@@ -54,7 +59,7 @@ class Settings(BaseSettings):
     MAX_WORKERS: int = 5
 
     model_config = {
-        "env_file": ".env",
+        "env_file": ".env.local",
         "extra": "allow"
     }
 

@@ -17,7 +17,7 @@ class AuthService:
 
     def __init__(self):
         self.prisma = Prisma()
-        self.JWT_SECRET_KEY = settings.JWT_SECRET_KEY
+        self.JWT_SECRET = settings.JWT_SECRET
         self.algorithm = "HS256"
         self.access_token_expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
@@ -53,7 +53,7 @@ class AuthService:
             )
         to_encode.update({"exp": expire})
         encoded_jwt = jwt.encode(
-            to_encode, self.JWT_SECRET_KEY, algorithm=self.algorithm
+            to_encode, self.JWT_SECRET, algorithm=self.algorithm
         )
         return encoded_jwt
 
@@ -61,7 +61,7 @@ class AuthService:
         """Decode and validate a JWT token"""
         try:
             payload = jwt.decode(
-                token, self.JWT_SECRET_KEY,
+                token, self.JWT_SECRET,
                 algorithms=[self.algorithm],
                 options={"verify_exp": True}
             )

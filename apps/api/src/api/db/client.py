@@ -11,7 +11,7 @@ from contextlib import asynccontextmanager
 from functools import lru_cache
 from typing import AsyncGenerator, Optional
 
-from prisma import Prisma
+from database.client import Prisma
 
 logger = logging.getLogger(__name__)
 
