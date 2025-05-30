@@ -29,7 +29,10 @@
     "clean": "turbo run clean",
     "db:generate": "turbo run db:generate",
     "db:push": "turbo run db:push",
-    "db:migrate": "turbo run db:migrate"
+    "db:migrate": "turbo run db:migrate",
+    "deploy:web": "vercel --prod",
+    "deploy:api": "cd apps/api && flyctl deploy --remote-only",
+    "deploy:all": "pnpm deploy:web && pnpm deploy:api"
   },
   "dependencies": {
     "typescript": "^5.8.3"

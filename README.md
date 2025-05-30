@@ -44,14 +44,30 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
    pnpm install
    ```
 
-3. **Development**
+3. **Environment Variables**
+
+   Create `.env.local` files in `apps/web` and `apps/api` with the following variables:
+
+   ```bash
+   # Shared
+   DATABASE_URL=<database-url>
+   DIRECT_URL=<direct-database-url>
+
+   # Web
+   NEXT_PUBLIC_API_URL=http://localhost:8000
+
+   # API
+   JWT_SECRET_KEY=<your-secret>
+   ```
+
+4. **Development**
 
    ```bash
    # Start the development server
    pnpm dev
    ```
 
-4. **Build and Deploy**
+5. **Build and Deploy**
 
     Deploy the frontend to Vercel. The FastAPI backend is deployed separately on Fly.io.
 
