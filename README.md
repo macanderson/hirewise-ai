@@ -1,4 +1,4 @@
-# hirewise.ai - AI Assistant for Resruiters
+# hirewise.ai - AI Assistant for Recruiters
 
 Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps you create and manage multi-agent applications with ease.
 
@@ -13,7 +13,8 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
   - FastAPI backend in `apps/api` managed with **Poetry**
   - Next.js frontend in `apps/web`
 - 🚀 **Production Ready**:
-  - Vercel deployment support
+  - Vercel frontend deployment
+  - Fly.io backend deployment
   - PNPM package management
   - Custom cursor interactions
   - Responsive design
@@ -23,7 +24,7 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
 - **Frontend**: Next.js 15, Radix UI, TailwindCSS
 - **Backend**: Python 3.13, FastAPI
 - **Build Tools**: Turborepo, PNPM
-- **Deployment**: Vercel
+- **Deployment**: Vercel (frontend) & Fly.io (backend)
 
 ## Getting Started
 
@@ -52,35 +53,13 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
 
 4. **Build and Deploy**
 
-   There are two deployment options available:
+    Deploy the frontend to Vercel. The FastAPI backend is deployed separately on Fly.io.
 
-   ### Full Stack Deployment (Default)
-
-   The default deployment includes both the Next.js frontend and Python FastAPI backend as serverless functions.
-
-   ```bash
-   # Build all packages and applications
-   pnpm build
-
-   # Deploy to Vercel
-   vercel
-   ```
-
-   The Python backend will be automatically deployed as serverless functions using Vercel's Python runtime. Make sure your `vercel.json` is properly configured with the Python build settings.
-
-   ### Web-Only Deployment
-
-   For deploying just the Next.js frontend:
-
-   ```bash
-   # Build the web application
-   cd apps/web && pnpm build
-
-   # Deploy using web-only configuration
-   vercel --config vercel-web-only.json
-   ```
-
-   This will deploy only the Next.js application without the Python backend.
+    ```bash
+    cd apps/web
+    pnpm build
+    vercel
+    ```
 
 ## Documentation
 
