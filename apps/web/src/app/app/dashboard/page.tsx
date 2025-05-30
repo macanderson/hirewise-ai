@@ -22,14 +22,14 @@ export default function DashboardPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const isProduction = process.env.NODE_ENV === 'production';
-        if (!AuthManager.isAuthenticated()) {
-          if (isProduction) {
-            router.push('/login');
-            return;
-          }
-          console.warn('User not authenticated in development mode');
-        }
+        // const isProduction = process.env.NODE_ENV === 'production';
+        // if (!AuthManager.isAuthenticated()) {
+        //   if (isProduction) {
+        //     router.push('/login');
+        //     return;
+        //   }
+        //   console.warn('User not authenticated in development mode');
+        // }
 
         const userData = await AuthManager.getCurrentUser();
         setUser(userData);
