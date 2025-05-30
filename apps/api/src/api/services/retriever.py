@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 import logging
 
 import numpy as np
-from sentence_transformers.SentenceTransformer import SentenceTransformer
+from sentence_transformers import SentenceTransformer
 
 from api.core.config import settings
 from api.db.client import get_prisma_client
