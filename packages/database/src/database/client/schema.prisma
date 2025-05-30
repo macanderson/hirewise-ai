@@ -1,0 +1,98 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public", "auth", "app"]
+}
+
+generator client {
+  provider             = "prisma-client-py"
+  previewFeatures      = ["multiSchema"]
+  recursive_type_depth = 5
+  interface            = "asyncio"
+  output               = "../src/database/client"
+}
+
+enum LicenseType {
+  PRO
+  ENTERPRISE
+  FREE_TRIAL
+
+  @@map("license_types")
+  @@schema("auth")
+}
+
+model Tenant {
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  license_type LicenseType @default(FREE_TRIAL) @map("license_type")
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @default(now()) @updatedAt
+  deleted_at   DateTime?
+
+  // Relations
+  users User[]
+
+  @@map("tenants")
+  @@schema("auth")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  // Reference to Supabase auth.users.id
+  auth_id    String   @unique @db.Uuid
+  email      String
+  first_name String?
+  last_name  String?
+  avatar_url String?
+  role       UserRole @default(USER)
+
+  // Multi-tenant
+  tenant_id String
+  tenant    Tenant @relation(fields: [tenant_id], references: [id])
+
+  profiles Profile[]
+
+  // Audit fields
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+  deleted_at DateTime?
+  created_by String?
+  updated_by String?
+  deleted_by String?
+
+  @@index([tenant_id])
+  @@index([auth_id])
+  @@map("users")
+  @@schema("auth")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  VIEWER
+
+  @@map("user_roles")
+  @@schema("auth")
+}
+
+model Profile {
+  id        String    @id @default(cuid()) @map("id") @db.VarChar(255)
+  social_id String?   @map("social_id") @db.VarChar(255)
+  auth_type AuthType? @default(EMAIL) @map("auth_type")
+  user_id   String    @unique @map("user_id") @db.VarChar(255)
+  User      User      @relation(fields: [user_id], references: [id])
+
+  @@map("profiles")
+  @@schema("auth")
+}
+
+enum AuthType {
+  GOOGLE
+  GITHUB
+  EMAIL
+
+  @@map("auth_types")
+  @@schema("auth")
+}

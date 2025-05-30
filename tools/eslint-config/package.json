@@ -4,5 +4,5 @@
   "main": "base.js",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.15.0"
+  "packageManager": "pnpm@10.11.0"
 }

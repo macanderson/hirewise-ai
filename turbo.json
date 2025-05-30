@@ -1,69 +1,38 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local", "**/.env", "**/tsconfig.json", "**/package.json"],
+  "globalDependencies": ["**/.env.*local", "**/.env.local", "**/.env"],
   "tasks": {
-    "dev": {
+    "db:generate": {
       "cache": false,
-      "persistent": true,
-      "env": [
-        "NODE_ENV",
-        "DATABASE_URL",
-        "DIRECT_URL",
-        "SUPABASE_URL",
-        "SUPABASE_KEY",
-        "SUPABASE_SERVICE_SECRET",
-        "SUPABASE_JWT_SECRET",
-        "NEXT_PUBLIC_API_URL"
-      ]
+      "inputs": ["packages/database/prisma/schema.prisma"],
+      "outputs": ["packages/database/src/client/**", "apps/docs/schema/**"]
+    },
+    "db:push": {
+      "cache": false,
+      "dependsOn": ["db:generate"],
+      "outputs": ["packages/database/generated/**", "apps/docs/schema/**"]
+    },
+    "db:migrate": {
+      "cache": false,
+      "dependsOn": ["db:generate"],
+      "outputs": ["packages/database/generated/**", "apps/docs/schema/**"]
     },
     "build": {
       "dependsOn": ["^build", "db:generate"],
-      "outputs": [".next/**", "dist/**", "src/db/client/**"],
-      "env": [
-        "NODE_ENV",
-        "DATABASE_URL",
-        "DIRECT_URL",
-        "SUPABASE_URL",
-        "SUPABASE_KEY",
-        "SUPABASE_SERVICE_SECRET",
-        "SUPABASE_JWT_SECRET",
-        "NEXT_PUBLIC_API_URL"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
     },
-    "lint": {
-      "outputs": [],
-      "env": ["NODE_ENV"]
-    },
-    "test": {
+    "dev": {
       "dependsOn": ["^build"],
-      "outputs": ["coverage/**"],
-      "env": [
-        "NODE_ENV",
-        "DATABASE_URL",
-        "DIRECT_URL",
-        "SUPABASE_URL",
-        "SUPABASE_KEY",
-        "SUPABASE_SERVICE_SECRET",
-        "SUPABASE_JWT_SECRET",
-        "NEXT_PUBLIC_API_URL"
-      ]
-    },
-    "start": {
       "cache": false,
       "persistent": true
     },
-    "type-check": {},
-    "clean": {
-      "cache": false
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"]
     },
-    "db:generate": {
-      "cache": false
-    },
-    "db:push": {
-      "cache": false
-    },
-    "db:migrate": {
-      "cache": false
+    "lint": {},
+    "type-check": {
+      "dependsOn": ["^build"]
     }
   }
 }

@@ -57,7 +57,7 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
    NEXT_PUBLIC_API_URL=http://localhost:8000
 
    # API
-   JWT_SECRET_KEY=<your-secret>
+   JWT_SECRET=<your-secret>
    ```
 
 4. **Development**
