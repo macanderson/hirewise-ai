@@ -7,7 +7,7 @@ app = 'hirewise-ai'
 primary_region = 'lax'
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "apps/api/Dockerfile"
 
 [http_service]
   internal_port = 8000
