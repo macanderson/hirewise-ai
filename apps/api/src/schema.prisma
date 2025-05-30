@@ -6,11 +6,6 @@ generator py {
   previewFeatures      = ["multiSchema", "postgresqlExtensions"]
 }
 
-generator docs {
-  provider = "prisma-docs-generator"
-  output   = "./../../apps/docs/schema"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
