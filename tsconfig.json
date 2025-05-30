@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@repo/typescript-config": ["./packages/typescript-config/tsconfig.base.json"],
-      "@repo/eslint-config": ["./packages/eslint-config/base.js"],
+      "@repo/eslint-config": ["./tools/eslint-config/base.js"],
       "@repo/lib": ["./packages/lib/src/index.ts"],
       "@repo/lib/*": ["./packages/lib/src/*"],
       "@repo/ui/*": ["./packages/ui/src/*"],
