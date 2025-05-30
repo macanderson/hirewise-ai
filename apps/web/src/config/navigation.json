@@ -8,77 +8,84 @@
       "children": []
     },
     {
-      "id": "agents",
-      "label": "AI Agents",
-      "icon": "robot",
+      "id": "Clients",
+      "label": "Clients",
+      "icon": "building",
       "children": [
         {
-          "id": "agents-list",
-          "label": "All Agents",
-          "href": "/agents",
+          "id": "clients-list",
+          "label": "All Clients",
+          "href": "/clients",
           "icon": "list"
         },
         {
-          "id": "agents-create",
-          "label": "Create Agent",
-          "href": "/agents/create",
-          "icon": "plus"
-        },
-        {
-          "id": "agents-templates",
-          "label": "Templates",
-          "href": "/agents/templates",
-          "icon": "template"
-        }
-      ]
-    },
-    {
-      "id": "workflows",
-      "label": "Workflows",
-      "icon": "workflow",
-      "children": [
-        {
-          "id": "workflows-list",
-          "label": "All Workflows",
-          "href": "/workflows",
-          "icon": "list"
-        },
-        {
-          "id": "workflows-create",
-          "label": "Create Workflow",
-          "href": "/workflows/create",
+          "id": "clients-create",
+          "label": "Create Client",
+          "href": "/clients/create",
           "icon": "plus"
         }
       ]
     },
     {
-      "id": "analytics",
-      "label": "Analytics",
-      "href": "/analytics",
-      "icon": "chart",
-      "children": []
-    },
-    {
-      "id": "settings",
-      "label": "Settings",
-      "icon": "settings",
+      "id": "Jobs",
+      "label": "Jobs",
+      "icon": "briefcase",
       "children": [
         {
-          "id": "settings-profile",
-          "label": "Profile",
-          "href": "/settings/profile",
+          "id": "jobs-list",
+          "label": "All Jobs",
+          "href": "/jobs",
+          "icon": "list"
+        },
+        {
+          "id": "jobs-create",
+          "label": "Create Job",
+          "href": "/jobs/create",
+          "icon": "plus"
+        }
+      ]
+    },
+    {
+      "id": "Talent Pool",
+      "label": "Talent Pool",
+      "href": "/talent",
+      "icon": "user",
+      "children": [
+        {
+          "id": "talent-list",
+          "label": "All Profiles",
+          "href": "/talent",
+          "icon": "list"
+        },
+        {
+          "id": "talent-create",
+          "label": "Create Profile",
+          "href": "/talent/create",
+          "icon": "plus"
+        }
+      ]
+    },
+    {
+      "id": "Tasks",
+      "label": "Tasks",
+      "icon": "calendar",
+      "children": [
+        {
+          "id": "tasks-list",
+          "label": "All Tasks",
+          "href": "/tasks",
           "icon": "user"
         },
         {
-          "id": "settings-billing",
-          "label": "Billing",
-          "href": "/settings/billing",
+          "id": "tasks-create",
+          "label": "Create Task",
+          "href": "/tasks/create",
           "icon": "credit-card"
         },
         {
-          "id": "settings-api",
-          "label": "API Keys",
-          "href": "/settings/api",
+          "id": "tasks-list",
+          "label": "All Tasks",
+          "href": "/tasks",
           "icon": "key"
         }
       ]
