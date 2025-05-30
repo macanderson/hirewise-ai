@@ -32,12 +32,12 @@ class Settings(BaseSettings):
     # Database
     DATABASE_URL: str = os.environ.get(
         "DATABASE_URL",
-        None,  # noqa: E501
+        "",  # noqa: E501
     )
 
     DIRECT_URL: str = os.environ.get(
         "DIRECT_URL",
-        None,  # noqa: E501
+        "",  # noqa: E501
     )
 
     # Vector database settings

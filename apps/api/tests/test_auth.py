@@ -9,7 +9,7 @@ os.environ.setdefault("JWT_SECRET", "test-secret")
 
 # Stub out the Prisma client to avoid requiring a generated client
 dummy_prisma = types.SimpleNamespace(Prisma=object)
-sys.modules.setdefault("db.client", dummy_prisma)
+sys.modules.setdefault("database.client", dummy_prisma)
 sys.modules.setdefault("prisma", dummy_prisma)
 
 # Load AuthService directly from its file to avoid importing the package

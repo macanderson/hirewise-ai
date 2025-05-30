@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 import bcrypt
 from jose import JWTError, jwt
-from db.client import Prisma
+from database.client import Prisma
 from api.core.config import settings
 import secrets
 import logging

@@ -39,8 +39,8 @@ This calls the `prisma generate` command defined in `packages/db/package.json` a
 Import the generated client and models in your FastAPI services:
 
 ```python
-from db.client import Prisma
-from db.client.models import User
+from database.client import Prisma
+from database.client.models import User
 
 prisma = Prisma()
 ```
@@ -53,7 +53,7 @@ When a user logs in with Supabase, verify the JWT and then create or fetch the c
 
 ```python
 from supabase import create_client
-from db.client import Prisma
+from database.client import Prisma
 
 class SupabaseAuthService:
     def __init__(self, url: str, anon_key: str):

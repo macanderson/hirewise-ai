@@ -29,7 +29,7 @@ echo "\n✅ Prisma Python client generated at $PY_CLIENT_OUT using schema $SCHEM
 
 # 4. Print instructions for correct usage
 echo "\nTo use the generated client in your Python code, ensure you import like this:"
-echo "  from db.client import Prisma"
+echo "  from database.client import Prisma"
 echo "\nAnd run your scripts with the correct PYTHONPATH, e.g.:"
 echo "  cd apps/api && PYTHONPATH=\$(pwd) python src/main.py"
-echo "\nNever install the Prisma client via pip. Always use the generated client." 
+echo "\nNever install the Prisma client via pip. Always use the generated client."

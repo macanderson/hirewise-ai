@@ -1,0 +1,56 @@
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore virtual environments
+.venv/
+env/
+venv/
+.direnv
+
+# Ignore Node modules and build artifacts
+node_modules/
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Ignore system and editor files
+.DS_Store
+Thumbs.db
+*.log
+
+# Ignore Git and version control
+.git/
+.gitignore
+
+# Ignore environment and config
+.env
+.env.*
+*.sqlite
+*.db
+
+# Cache and coverage
+.cache/
+coverage/
+*.coverage
+
+# Ignore Docker output and intermediate files
+docker-compose.override.yml
+docker-compose.dev.yml
+
+# Ignore all packages subdirectories except database
+packages/*
+!packages/database/
+extras/*
+scripts/*
+tools/*
+node_modules/*
+docs/*
+.turbo
+.vscode
+.github
+.cursor
+.cache
