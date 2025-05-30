@@ -8,9 +8,10 @@ Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps
 - 🎨 **Modern UI**: Built with Next.js 15 and Radix UI components
 - 🔧 **Robust Backend**: Python 3.13 FastAPI server for high-performance AI operations
 - 📦 **Monorepo Architecture**:
-  - Turborepo for efficient development
-  - Shared UI components
-  - Centralized configuration
+  - Managed with **Turborepo** and **pnpm** workspaces
+  - Shared packages under `/packages` and tools under `/tools`
+  - FastAPI backend in `apps/api` managed with **Poetry**
+  - Next.js frontend in `apps/web`
 - 🚀 **Production Ready**:
   - Vercel deployment support
   - PNPM package management

@@ -31,6 +31,8 @@ importers:
         specifier: ^2.5.3
         version: 2.5.3
 
+  apps/api: {}
+
   apps/web:
     dependencies:
       '@radix-ui/react-form':
@@ -81,7 +83,7 @@ importers:
         version: 3.3.1
       '@repo/eslint-config':
         specifier: workspace:*
-        version: link:../../packages/eslint-config
+        version: link:../../tools/eslint-config
       '@types/node':
         specifier: ^20.17.50
         version: 20.17.50
@@ -135,13 +137,13 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
-  packages/eslint-config: {}
+  tools/eslint-config: {}
 
   packages/lib:
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../tools/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
@@ -174,7 +176,7 @@ importers:
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
-        version: link:../eslint-config
+        version: link:../tools/eslint-config
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config

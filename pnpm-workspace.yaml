@@ -1,11 +1,4 @@
 packages:
-  - apps/*
-  - packages/*
-onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
-  - prisma
-  - puppeteer
-  - sharp
-  - unrs-resolver
-  - vue-demi
+  - "apps/*"
+  - "packages/*"
+  - "tools/*"
