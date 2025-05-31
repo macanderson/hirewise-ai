@@ -8,6 +8,7 @@ __pycache__/
 env/
 venv/
 .direnv
+.direnv/
 
 # Ignore Node modules and build artifacts
 node_modules/
@@ -49,8 +50,9 @@ scripts/*
 tools/*
 node_modules/*
 docs/*
-.turbo
-.vscode
-.github
-.cursor
-.cache
+.turbo/*
+.vercel/*
+.vscode/*
+.github/*
+.cursor/*
+.cache/*

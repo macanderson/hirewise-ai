@@ -55,6 +55,12 @@ RUN poetry install --only=main --no-root && \
     rm -rf $POETRY_CACHE_DIR && \
     ls -la .venv/
 
+# after installing your dependencies
+RUN poetry install --no-root
+
+# fetch the Linux Prisma engine binary
+RUN poetry run prisma py fetch
+
 # ================================
 # Production Stage
 # ================================
@@ -83,6 +89,7 @@ RUN mkdir -p /app/data /app/static && \
 # Set Python path to include both src directories
 ENV PYTHONPATH="/app/src:/app/packages/database/src"
 ENV PATH="/app/apps/api/.venv/bin:$PATH"
+
 
 # Switch to non-root user
 USER fastapi

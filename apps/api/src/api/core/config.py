@@ -20,8 +20,9 @@ class Settings(BaseSettings):
     # CORS
     CORS_ORIGINS: List[str] = [
         "http://localhost:3000",  # Local development
-        "https://app.hirewise.ai",  # Production
+        "https://*.hirewise.ai",  # Production
         "https://hirewise.ai",  # Production domain
+        "https://*.fly.dev",  # Production domain
     ]  # noqa: E501
 
     # Security

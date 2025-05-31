@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://hirewise-ai.fly.dev/:path*',
+        destination: 'https://hirewise-api.fly.dev/:path*',
       },
     ];
   },
