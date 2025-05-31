@@ -14,18 +14,12 @@
     "@types/react-dom": "^19.1.5",
     "eslint-config-turbo": "^2.5.3"
   },
-  "prisma": {
-    "schema": "./packages/database/prisma/schema.prisma"
-  },
   "scripts": {
     "build": "pnpm --filter ./apps/* build",
     "dev": "pnpm --filter ./apps/* --parallel dev",
     "lint": "pnpm -r lint",
     "test": "pnpm -r test",
     "type-check": "pnpm -r type-check",
-    "db:generate": "pnpm --filter ./packages/database db:generate",
-    "db:push": "pnpm --filter ./packages/database db:push",
-    "db:migrate": "pnpm --filter ./packages/database db:migrate",
     "deploy:web": "vercel --prod",
     "deploy:api": "cd apps/api && flyctl deploy --remote-only",
     "deploy:all": "pnpm deploy:web && pnpm deploy:api"

@@ -1,7 +1,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export interface LoginRequest {
-  username: string; // FastAPI expects 'username' field for OAuth2PasswordRequestForm
+  username: string;
   password: string;
 }
 
@@ -72,6 +72,19 @@ class ApiClient {
       throw new Error(errorData.detail || 'Login failed');
     }
 
+    return response.json();
+  }
+
+  async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    const response = await fetch(`${this.baseUrl}/api/v1/auth/sign-up`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const errorData: ApiError = await response.json();
+      throw new Error(errorData.detail || 'Sign up failed');
+    }
     return response.json();
   }
 

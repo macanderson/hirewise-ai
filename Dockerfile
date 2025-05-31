@@ -1,5 +1,4 @@
 # Production FastAPI Dockerfile for monorepo setup
-# Build context should be set to workspace root (../..) to access packages/database
 
 # ================================
 # Base Python Image
@@ -11,7 +10,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    POETRY_VERSION=1.8.3
+    POETRY_VERSION=1.8.3 \
+    PRISMA_HOME_DIR=/app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -39,8 +39,6 @@ WORKDIR /app
 # Copy Poetry files for API
 COPY apps/api/pyproject.toml apps/api/poetry.lock ./apps/api/
 
-# Copy database package for local dependency
-COPY packages/database/ ./packages/database/
 
 # Install dependencies
 WORKDIR /app/apps/api
@@ -74,10 +72,11 @@ WORKDIR /app
 
 # Copy virtual environment from dependencies stage
 COPY --from=dependencies /app/apps/api/.venv /app/apps/api/.venv
+# Copy Prisma query engine binaries
+COPY --from=dependencies /app/.cache /app/.cache
 
 # Copy application code
 COPY apps/api/src/ ./src/
-COPY packages/database/src/ ./packages/database/src/
 
 # Copy configuration files
 COPY apps/api/logging.conf ./logging.conf
@@ -87,8 +86,9 @@ RUN mkdir -p /app/data /app/static && \
     chown -R fastapi:fastapi /app
 
 # Set Python path to include both src directories
-ENV PYTHONPATH="/app/src:/app/packages/database/src"
+ENV PYTHONPATH="/app/src"
 ENV PATH="/app/apps/api/.venv/bin:$PATH"
+ENV PRISMA_HOME_DIR=/app
 
 
 # Switch to non-root user

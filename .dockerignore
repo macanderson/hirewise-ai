@@ -44,7 +44,6 @@ docker-compose.dev.yml
 
 # Ignore all packages subdirectories except database
 packages/*
-!packages/database/
 extras/*
 scripts/*
 tools/*

@@ -2,7 +2,7 @@
 
 import { Card, Flex, Heading, Text, Button, Select } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthManager } from '@/lib/auth';
 import { Logo } from '@/components/ui/logo';
@@ -19,7 +19,7 @@ export default function SignUpPage() {
 
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+    const password = formData.get('password') as string;    
     const firstName = formData.get('first_name') as string;
     const lastName = formData.get('last_name') as string;
     const organizationName = formData.get('organization_name') as string;
@@ -40,7 +40,6 @@ export default function SignUpPage() {
         first_name: firstName || undefined,
         last_name: lastName || undefined,
       });
-
       router.push('/app/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
@@ -50,12 +49,14 @@ export default function SignUpPage() {
   };
 
   return (
+    
     <Card size="4" style={{ backgroundColor: 'white', width: '100%' }} variant="surface">
-      <Flex direction="column" gap="4" className="mt-0">
-        <Heading size="6" align="center" mx="0" className="flex flex-col items-center mt-0">
+      
+      <Flex direction="column" gap="4">
+        <Heading size="6" align="center">
           <Logo width={250} height={100} className="mb-4 mx-auto" />
           <Text size="5" weight="medium">
-            Create your account
+            Create an account
           </Text>
         </Heading>
 
@@ -150,7 +151,7 @@ export default function SignUpPage() {
           <Form.Field name="organization_name">
             <Form.Label>
               <Text size="2" weight="medium">
-                Organization Name
+                Company Name
               </Text>
             </Form.Label>
             <Form.Control asChild>
@@ -164,7 +165,7 @@ export default function SignUpPage() {
             </Form.Control>
             <Form.Message match="valueMissing">
               <Text size="1" color="red">
-                Please enter your organization name
+                Company Name is required.
               </Text>
             </Form.Message>
           </Form.Field>
@@ -172,7 +173,7 @@ export default function SignUpPage() {
           <Form.Field name="organization_size">
             <Form.Label>
               <Text size="2" weight="medium">
-                Organization Size
+                Company Size
               </Text>
             </Form.Label>
             <Form.Control asChild>

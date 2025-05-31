@@ -55,6 +55,16 @@ export class AuthManager {
     }
   }
 
+  static async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    try {
+      const response = await apiClient.signUp(data);
+      this.setToken(response.access_token);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async login(credentials: LoginRequest, tenantId?: string): Promise<LoginResponse> {
     try {
       const response = await apiClient.login(credentials, tenantId);
