@@ -1,5 +1,4 @@
 # Production FastAPI Dockerfile for monorepo setup
-# Build context should be set to workspace root (../..) to access packages/database
 
 # ================================
 # Base Python Image
@@ -39,8 +38,6 @@ WORKDIR /app
 # Copy Poetry files for API
 COPY apps/api/pyproject.toml apps/api/poetry.lock ./apps/api/
 
-# Copy database package for local dependency
-COPY packages/database/ ./packages/database/
 
 # Install dependencies
 WORKDIR /app/apps/api
@@ -77,7 +74,6 @@ COPY --from=dependencies /app/apps/api/.venv /app/apps/api/.venv
 
 # Copy application code
 COPY apps/api/src/ ./src/
-COPY packages/database/src/ ./packages/database/src/
 
 # Copy configuration files
 COPY apps/api/logging.conf ./logging.conf
@@ -87,7 +83,7 @@ RUN mkdir -p /app/data /app/static && \
     chown -R fastapi:fastapi /app
 
 # Set Python path to include both src directories
-ENV PYTHONPATH="/app/src:/app/packages/database/src"
+ENV PYTHONPATH="/app/src"
 ENV PATH="/app/apps/api/.venv/bin:$PATH"
 
 

@@ -1,18 +1,10 @@
 import asyncio
 import os
-import sys
-import types
 import importlib.util
 from pathlib import Path
 
 os.environ.setdefault("JWT_SECRET", "test-secret")
 
-# Stub out the Prisma client to avoid requiring a generated client
-dummy_prisma = types.SimpleNamespace(Prisma=object)
-sys.modules.setdefault("database.client", dummy_prisma)
-sys.modules.setdefault("prisma", dummy_prisma)
-
-# Load AuthService directly from its file to avoid importing the package
 auth_path = Path(__file__).resolve().parents[1] / "src/api/services/auth.py"
 spec = importlib.util.spec_from_file_location("auth", auth_path)
 auth = importlib.util.module_from_spec(spec)
