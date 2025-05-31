@@ -14,7 +14,8 @@ The application uses a hierarchical layout system with three main layouts:
 
 The Master Layout is the root layout that wraps the entire application.
 
-### Features:
+### Features
+
 - **Font Configuration**: Loads and configures Aeonik Sans and Aeonik Fono fonts
 - **Radix UI Theme**: Sets up the global Radix UI theme with yellow accent color
 - **Global Styles**: Includes global CSS and typography styles
@@ -22,7 +23,7 @@ The Master Layout is the root layout that wraps the entire application.
 - **Meta Tags**: Comprehensive meta tags for SEO and social sharing
 - **Favicon Support**: Complete favicon setup for all devices
 
-### Structure:
+### Structure
 ```tsx
 <html>
   <body>
@@ -42,17 +43,20 @@ The Master Layout is the root layout that wraps the entire application.
 
 The Dashboard Layout provides the structure for authenticated user pages.
 
-### Features:
+### Dashboard Features
+
 - **Header**: Top navigation bar with logo and user menu
 - **Sidebar**: Collapsible navigation sidebar with tree structure
 - **Responsive Design**: Adapts to different screen sizes
 - **Navigation Configuration**: JSON-based navigation structure
 
-### Components:
+### Dashboard Components
+
 - `Header` - Top navigation with logo and user actions
 - `Sidebar` - Left navigation with expandable menu items
 
-### Structure:
+### Dashboard Structure
+
 ```tsx
 <div className="flex h-screen bg-gray-50">
   <Sidebar />
@@ -65,7 +69,7 @@ The Dashboard Layout provides the structure for authenticated user pages.
 </div>
 ```
 
-### Navigation Configuration
+### Dashboard Navigation Configuration
 
 The sidebar navigation is configured via `src/config/navigation.json`:
 
@@ -96,7 +100,8 @@ The sidebar navigation is configured via `src/config/navigation.json`:
 }
 ```
 
-### Navigation Features:
+### Navigation Features
+
 - **Tree Structure**: Supports nested navigation items
 - **Expandable/Collapsible**: Parent items can be expanded/collapsed
 - **Active State**: Highlights current page and section
@@ -106,14 +111,16 @@ The sidebar navigation is configured via `src/config/navigation.json`:
 
 The Auth Layout provides a clean, centered design for authentication pages.
 
-### Features:
+### Auth Features
+
 - **Centered Design**: Centers content vertically and horizontally
 - **Logo Display**: Shows the HireWise AI logo at the top
 - **Gradient Background**: Subtle yellow gradient background
 - **Responsive**: Adapts to mobile and desktop screens
 - **Footer**: Simple copyright footer
 
-### Structure:
+### Auth Structure
+
 ```tsx
 <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-white flex flex-col">
   <div className="flex justify-center pt-8 pb-4">
@@ -133,6 +140,7 @@ The Auth Layout provides a clean, centered design for authentication pages.
 ## Components
 
 ### Logo Component (`src/components/ui/logo.tsx`)
+
 Reusable logo component that displays the HireWise AI logo from `/logo.svg`.
 
 ```tsx
@@ -140,17 +148,21 @@ Reusable logo component that displays the HireWise AI logo from `/logo.svg`.
 ```
 
 ### Footer Component (`src/components/ui/footer.tsx`)
+
 Global footer with copyright and navigation links.
 
 ### Header Component (`src/components/ui/header.tsx`)
+
 Dashboard header with logo and user menu.
 
 ### Sidebar Component (`src/components/ui/sidebar.tsx`)
+
 Dashboard sidebar with expandable navigation tree.
 
 ## Usage Examples
 
 ### Dashboard Page
+
 ```tsx
 // src/app/dashboard/agents/page.tsx
 export default function AgentsPage() {
@@ -164,6 +176,7 @@ export default function AgentsPage() {
 ```
 
 ### Auth Page
+
 ```tsx
 // src/app/(auth)/signup/page.tsx
 export default function SignupPage() {
@@ -179,6 +192,7 @@ export default function SignupPage() {
 ## Styling
 
 The layouts use:
+
 - **Tailwind CSS** for utility classes
 - **Radix UI** for components and theming
 - **Aeonik Fonts** for typography
@@ -186,7 +200,7 @@ The layouts use:
 
 ## File Structure
 
-```
+```text
 src/
 ├── app/
 │   ├── layout.tsx              # Master Layout
@@ -225,6 +239,7 @@ Edit `src/config/navigation.json` to add new navigation items:
 ```
 
 ### Styling Customization
+
 - Modify Tailwind classes in component files
 - Update Radix UI theme in `src/app/layout.tsx`
 - Customize fonts in `src/styles/globals.css`
