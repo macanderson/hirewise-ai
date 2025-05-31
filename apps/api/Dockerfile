@@ -11,9 +11,6 @@ RUN pip install --no-cache-dir poetry
 # Copy project metadata
 COPY apps/api/pyproject.toml apps/api/poetry.lock* ./
 
-# Include the local database package so Poetry can install it
-COPY packages/database ./packages/database
-
 # Install dependencies without dev packages and without creating a venv
 RUN poetry config virtualenvs.create false \
     && poetry install --no-dev --no-interaction --no-ansi
