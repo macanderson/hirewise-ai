@@ -1,22 +1,40 @@
-# syntax=docker/dockerfile:1
-
+# Use Python 3.11 slim image
 FROM python:3.11-slim
 
+# Set working directory
 WORKDIR /app
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
 
-RUN pip install --no-cache-dir poetry
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy project metadata
-COPY apps/api/pyproject.toml apps/api/poetry.lock* ./
+# Install Poetry
+RUN pip install poetry==1.8.3
 
-# Install dependencies without dev packages and without creating a venv
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi
+# Configure Poetry to not create virtual environment
+RUN poetry config virtualenvs.create false
 
-# Copy the API source after dependencies are installed
-COPY apps/api ./
+# Copy only dependency files first
+COPY apps/api/pyproject.toml apps/api/poetry.lock ./
 
+# Install dependencies without installing the project itself
+RUN poetry install --no-root --no-interaction --no-ansi
+
+# Copy application code
+COPY apps/api/src ./src
+COPY packages/database ./packages/database
+
+# Create a simple README to satisfy Poetry if needed later
+RUN echo "# Hello World" > README.md
+
+# Set Python path
+ENV PYTHONPATH=/app/src:/app/packages/database/src
+
+# Expose port
 EXPOSE 8000
+
+# Run the application
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

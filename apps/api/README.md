@@ -1,6 +1,6 @@
-# API Service
+# HireWise API
 
-This directory contains the FastAPI backend for HireWise AI.
+FastAPI backend services for HireWise.ai
 
 ## Development
 
