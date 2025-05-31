@@ -13,7 +13,7 @@ COPY apps/api/pyproject.toml apps/api/poetry.lock* ./
 
 # Install dependencies without dev packages and without creating a venv
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+    && poetry install --no-interaction --no-ansi
 
 # Copy the API source after dependencies are installed
 COPY apps/api ./
