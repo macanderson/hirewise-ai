@@ -129,9 +129,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@types/node':
         specifier: ^20.17.50
         version: 20.17.57
@@ -146,6 +143,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@repo/lib':
+        specifier: workspace:*
+        version: link:../lib
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
