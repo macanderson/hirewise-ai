@@ -1,7 +1,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export interface LoginRequest {
-  username: string; // FastAPI expects 'username' field for OAuth2PasswordRequestForm
+  username: string;
   password: string;
 }
 
@@ -13,9 +13,19 @@ export interface LoginResponse {
 export interface SignUpRequest {
   email: string;
   password: string;
+  organization_name: string;
+  organization_size: number;
   first_name?: string;
   last_name?: string;
-  organization_name?: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+}
+
+export interface PasswordReset {
+  reset_token: string;
+  new_password: string;
 }
 
 export interface ApiError {
@@ -107,6 +117,56 @@ class ApiClient {
     if (!response.ok) {
       const errorData: ApiError = await response.json();
       throw new Error(errorData.detail || 'Logout failed');
+    }
+  }
+
+  async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    const response = await fetch(`${this.baseUrl}/api/v1/auth/sign-up`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData: ApiError = await response.json();
+      throw new Error(errorData.detail || 'Registration failed');
+    }
+
+    return response.json();
+  }
+
+  async requestPasswordReset(email: string): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/v1/auth/request-password-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+      const errorData: ApiError = await response.json();
+      throw new Error(errorData.detail || 'Request failed');
+    }
+  }
+
+  async resetPassword(data: PasswordReset): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/api/v1/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData: ApiError = await response.json();
+      throw new Error(errorData.detail || 'Password reset failed');
     }
   }
 }

@@ -1,4 +1,10 @@
-import { apiClient, LoginRequest, LoginResponse, SignUpRequest } from './api';
+import {
+  apiClient,
+  LoginRequest,
+  LoginResponse,
+  SignUpRequest,
+  PasswordReset,
+} from './api';
 
 const TOKEN_KEY = 'token';
 const TENANT_ID_KEY = 'tenant_id';
@@ -77,6 +83,16 @@ export class AuthManager {
     }
   }
 
+  static async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    try {
+      const response = await apiClient.signUp(data);
+      this.setToken(response.access_token);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async logout(): Promise<void> {
     const token = this.getToken();
 
@@ -97,6 +113,14 @@ export class AuthManager {
     if (typeof window !== 'undefined') {
       window.location.href = '/login';
     }
+  }
+
+  static async requestPasswordReset(email: string): Promise<void> {
+    await apiClient.requestPasswordReset(email);
+  }
+
+  static async resetPassword(data: PasswordReset): Promise<void> {
+    await apiClient.resetPassword(data);
   }
 
   static isAuthenticated(): boolean {
