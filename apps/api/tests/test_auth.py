@@ -1,6 +1,6 @@
 import asyncio
-import os
 import importlib.util
+import os
 from pathlib import Path
 
 os.environ.setdefault("JWT_SECRET", "test-secret")

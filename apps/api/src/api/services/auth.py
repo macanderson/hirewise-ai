@@ -3,13 +3,12 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 import bcrypt
-from jose import JWTError, jwt
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
-from supabase import create_client, Client
+from jose import JWTError, jwt
+from supabase import Client, create_client
 
 from api.core.config import settings
-
 
 logger = logging.getLogger(__name__)
 

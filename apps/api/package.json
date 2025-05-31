@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "FastAPI services",
   "scripts": {
-    "dev": "uvicorn src.api.main:app --reload",
-    "start": "uvicorn src.api.main:app",
+    "dev": "poetry run uvicorn src.api.main:app --reload",
+    "start": "poetry run uvicorn src.api.main:app",
     "build": "poetry build",
-    "lint": "ruff check .",
-    "format": "ruff format .",
-    "test": "pytest"
+    "lint": "poetry run ruff check .",
+    "format": "poetry run ruff format .",
+    "test": "poetry run pytest"
   }
 }

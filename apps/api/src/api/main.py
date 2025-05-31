@@ -2,10 +2,10 @@ import logging
 from contextlib import asynccontextmanager
 
 import uvicorn
-
-from fastapi.openapi.utils import get_openapi
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.utils import get_openapi
+
 from api.core.config import settings
 from api.routes.v1 import router as v1_router
 from api.services.auth import AuthService

@@ -1,58 +1,43 @@
 # __init__.py
+from api.schemas.agent import AgentBase, AgentCreate, AgentResponse
 from api.schemas.auth import (
+    PasswordChange,
+    PasswordReset,
+    PasswordResetRequest,
     Token,
     TokenData,
-    UserRegister,
     UserLogin,
-    PasswordChange,
-    PasswordResetRequest,
-    PasswordReset,
-    UserResponse
+    UserRegister,
+    UserResponse,
 )
 from api.schemas.candidate import (
     CandidateBase,
     CandidateCreate,
     CandidateResponse,
+    CandidateSource,
+    CandidateStatus,
     CareerLevel,
     EducationLevel,
-    CandidateStatus,
-    CandidateSource
 )
 from api.schemas.chat import (
+    ChatCompletionRequest,
+    ChatCompletionResponse,
     ChatMessage,
     ChatMessageCreate,
     ChatMessageResponse,
     ChatSessionCreate,
     ChatSessionResponse,
-    ChatCompletionRequest,
-    ChatCompletionResponse
 )
 from api.schemas.document import (
     DocumentBase,
+    DocumentChunkResponse,
     DocumentCreate,
     DocumentResponse,
     DocumentURLUpload,
-    DocumentChunkResponse
 )
-from api.schemas.project import (
-    ProjectCreate,
-    ProjectResponse
-)
-from api.schemas.tenant import (
-    TenantCreate,
-    TenantResponse
-)
-from api.schemas.agent import (
-    AgentBase,
-    AgentCreate,
-    AgentResponse
-)
-from api.schemas.job import (
-    JobBase,
-    JobCreate,
-    JobResponse,
-    JobStatus
-)
+from api.schemas.job import JobBase, JobCreate, JobResponse, JobStatus
+from api.schemas.project import ProjectCreate, ProjectResponse
+from api.schemas.tenant import TenantCreate, TenantResponse
 
 __all__ = [
     # Auth schemas
