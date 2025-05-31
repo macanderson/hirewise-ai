@@ -1,4 +1,4 @@
-name: Deploy API to Fly.io
+name: Deploy FastAPI Server to Fly.io
 
 on:
   push:
@@ -11,9 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
     - uses: superfly/flyctl-actions/setup-flyctl@master
-
     - run: |
         cd apps/api
         flyctl deploy --remote-only
