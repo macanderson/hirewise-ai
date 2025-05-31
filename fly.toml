@@ -3,184 +3,26 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-# Production FastAPI App Configuration
-# Located in apps/api with dependency on packages/database
-#
-# Deployment steps:
-# 1. Create the app: fly apps create hirewise-api
-# 2. Set production secrets: fly secrets set DATABASE_URL="your-database-url" JWT_SECRET_KEY="your-secret-key"
-# 3. Deploy from monorepo root: fly deploy --build-arg="POETRY_VERSION=1.8.3"
-# 4. Scale if needed: fly scale count web=3 worker=2
+app = 'hirewise-api'
+primary_region = 'ord'
 
-app = "hirewise-api"
-primary_region = "ord"  # Chicago - central US location for good global latency
-kill_signal = "SIGTERM"
-kill_timeout = 30
-
-# Build configuration for monorepo with Docker
 [build]
-  dockerfile = "Dockerfile"
-  # Set context to workspace root to access packages/database
+  dockerfile = "apps/api/Dockerfile"
   context = "../.."
 
-# Deployment strategy and release commands
-[deploy]
-  release_command = "python -c 'from database.client import Prisma; import asyncio; asyncio.run(Prisma().connect())'"
-  strategy = "rolling"
-  max_unavailable = 1
-  wait_timeout = "10m"
-
-# Environment variables (non-sensitive)
 [env]
   PYTHON_ENV = "production"
-  FASTAPI_ENV = "production"
-  LOG_LEVEL = "info"
-  UVICORN_HOST = "0.0.0.0"
-  UVICORN_PORT = "8000"
-  UVICORN_WORKERS = "1"  # Single worker per machine for better resource control
-  PYTHONPATH = "/app/src:/app/packages/database/src"
 
-# Process groups for different workloads
-[processes]
-  web = "uvicorn api.main:app --host 0.0.0.0 --port 8000 --workers 1 --access-log --loop uvloop"
-  worker = "python -m api.worker"
-  scheduler = "python -m api.scheduler"
-
-# HTTP service configuration with auto-scaling
 [http_service]
   internal_port = 8000
   force_https = true
-  auto_stop_machines = "suspend"  # Suspend for faster cold starts
+  auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 2  # Always keep 2 machines for availability
-  processes = ["web"]
-
-  # Concurrency settings optimized for FastAPI
-  [http_service.concurrency]
-    type = "requests"
-    soft_limit = 100   # Start routing to other machines
-    hard_limit = 200   # Never exceed this per machine
-
-  # HTTP options for performance and security
-  [http_service.http_options]
-    idle_timeout = 300  # 5 minutes
-    h2_backend = true   # Enable HTTP/2 for better performance
-
-    [http_service.http_options.response]
-      pristine = false  # Keep Fly headers for debugging
-
-      [http_service.http_options.response.headers]
-        X-Frame-Options = "DENY"
-        X-Content-Type-Options = "nosniff"
-        X-XSS-Protection = "1; mode=block"
-        Referrer-Policy = "strict-origin-when-cross-origin"
-        Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-
-  # TLS configuration
-  [http_service.tls_options]
-    alpn = ["h2", "http/1.1"]
-    versions = ["TLSv1.2", "TLSv1.3"]
-
-  # Health checks for the web service
-  [[http_service.checks]]
-    grace_period = "30s"
-    interval = "15s"
-    method = "GET"
-    timeout = "5s"
-    path = "/health"
-    protocol = "http"
-
-    [http_service.checks.headers]
-      User-Agent = "Fly-Health-Check"
-
-  [[http_service.checks]]
-    grace_period = "45s"
-    interval = "60s"
-    method = "GET"
-    timeout = "10s"
-    path = "/health/deep"
-    protocol = "http"
-
-# VM configurations for different process groups
-[[vm]]
-  # Web servers - optimized for request handling
-  size = "shared-cpu-2x"
-  memory = "1gb"
-  processes = ["web"]
+  min_machines_running = 0
+  processes = ['app']
 
 [[vm]]
-  # Background workers - more CPU for processing
-  size = "performance-1x"
-  memory = "2gb"
-  processes = ["worker"]
-
-[[vm]]
-  # Scheduler - minimal resources
-  size = "shared-cpu-1x"
-  memory = "512mb"
-  processes = ["scheduler"]
-
-# Volume configuration removed - using ephemeral storage instead
-# For persistent data, consider external services:
-# - File uploads: S3, Cloudinary, etc.
-# - Logs: Fly.io logs, Sentry, external logging services
-# - Cache: Redis, external cache services
-
-# Top-level halth checks for non-HTTP services
-[checks]
-  [checks.database_connection]
-    type = "tcp"
-    port = 5432
-    grace_period = "30s"
-    interval = "60s"
-    timeout = "10s"
-    processes = ["web", "worker"]
-
-  [checks.redis_connection]
-    type = "tcp"
-    port = 6379
-    grace_period = "15s"
-    interval = "30s"
-    timeout = "5s"
-    processes = ["worker"]
-
-# Restart policies
-[[restart]]
-  policy = "on-failure"
-  retries = 3
-  processes = ["web"]
-
-[[restart]]
-  policy = "always"  # Background workers should always restart
-  retries = 5
-  processes = ["worker", "scheduler"]
-
-# Metrics collection for monitoring
-[[metrics]]
-  port = 9090
-  path = "/metrics"
-  processes = ["web"]
-
-[[metrics]]
-  port = 9091
-  path = "/worker/metrics"
-  processes = ["worker"]
-
-# Static file serving for API documentation
-[[statics]]
-  guest_path = "/app/static"
-  url_prefix = "/static"
-
-# Configuration files
-[[files]]
-  guest_path = "/app/logging.conf"
-  local_path = "./logging.conf"
-  processes = ["web", "worker", "scheduler"]
-
-# Secrets that should be set with `fly secrets set`
-# DATABASE_URL - Primary database connection
-# REDIS_URL - Redis connection for caching/queues
-# JWT_SECRET_KEY - For authentication tokens
-# OPENAI_API_KEY - If using AI features
-# SENTRY_DSN - For error tracking
-# STRIPE_SECRET_KEY - If using payments
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024

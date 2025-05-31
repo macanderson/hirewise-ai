@@ -51,15 +51,15 @@ jobs:
         run: cd apps/api && poetry install
 
       - name: Type check
-        run: pnpm turbo type-check
+        run: pnpm -r type-check
 
       - name: Lint
-        run: pnpm turbo lint
+        run: pnpm -r lint
 
       - name: Test
-        run: pnpm turbo test
+        run: pnpm -r test
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
 
       - name: Build
-        run: pnpm turbo build
+        run: pnpm --filter ./apps/* build
