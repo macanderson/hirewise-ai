@@ -40,7 +40,6 @@ export default function SignUpPage() {
         first_name: firstName || undefined,
         last_name: lastName || undefined,
       });
-
       router.push('/app/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed');
@@ -58,13 +57,11 @@ export default function SignUpPage() {
             Create your account
           </Text>
         </Heading>
-
         {error && (
           <Text color="red" size="2" align="center">
             {error}
           </Text>
         )}
-
         <Form.Root onSubmit={handleSubmit} className="space-y-3">
           <Form.Field name="email">
             <Form.Label>
@@ -150,7 +147,7 @@ export default function SignUpPage() {
           <Form.Field name="organization_name">
             <Form.Label>
               <Text size="2" weight="medium">
-                Organization Name
+                Company Name
               </Text>
             </Form.Label>
             <Form.Control asChild>
@@ -164,7 +161,7 @@ export default function SignUpPage() {
             </Form.Control>
             <Form.Message match="valueMissing">
               <Text size="1" color="red">
-                Please enter your organization name
+                Company Name is required.
               </Text>
             </Form.Message>
           </Form.Field>
@@ -172,7 +169,7 @@ export default function SignUpPage() {
           <Form.Field name="organization_size">
             <Form.Label>
               <Text size="2" weight="medium">
-                Organization Size
+                Company Size
               </Text>
             </Form.Label>
             <Form.Control asChild>
