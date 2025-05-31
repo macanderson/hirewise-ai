@@ -7,7 +7,7 @@
   "packageManager": "pnpm@10.11.0",
   "scripts": {
     "type-check": "tsc --noEmit",
-    "lint": "eslint . --config=eslint.config.mjs"
+    "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

@@ -21,6 +21,6 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "test": "echo \"No tests yet\" && exit 0",
-    "lint": "eslint . --config=eslint.config.mjs"
+    "lint": "eslint 'src/**/*.{ts,tsx}'"
   }
 }
