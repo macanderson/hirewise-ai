@@ -10,7 +10,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    POETRY_VERSION=1.8.3
+    POETRY_VERSION=1.8.3 \
+    PRISMA_HOME_DIR=/app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -71,6 +72,8 @@ WORKDIR /app
 
 # Copy virtual environment from dependencies stage
 COPY --from=dependencies /app/apps/api/.venv /app/apps/api/.venv
+# Copy Prisma query engine binaries
+COPY --from=dependencies /app/.cache /app/.cache
 
 # Copy application code
 COPY apps/api/src/ ./src/
@@ -85,6 +88,7 @@ RUN mkdir -p /app/data /app/static && \
 # Set Python path to include both src directories
 ENV PYTHONPATH="/app/src"
 ENV PATH="/app/apps/api/.venv/bin:$PATH"
+ENV PRISMA_HOME_DIR=/app
 
 
 # Switch to non-root user

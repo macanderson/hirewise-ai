@@ -22,7 +22,7 @@ export default function SignUpPage() {
 
     try {
       await AuthManager.signUp({ email, password });
-      router.push('/dashboard');
+      router.push('/app/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign up failed');
     } finally {
@@ -35,7 +35,9 @@ export default function SignUpPage() {
       <Flex direction="column" gap="4">
         <Heading size="6" align="center">
           <Logo width={250} height={100} className="mb-4 mx-auto" />
-          <Text size="5" weight="medium">Create an account</Text>
+          <Text size="5" weight="medium">
+            Create an account
+          </Text>
         </Heading>
 
         {error && (
@@ -47,14 +49,24 @@ export default function SignUpPage() {
         <Form.Root onSubmit={handleSubmit} className="space-y-4">
           <Form.Field name="email">
             <Form.Label>Email</Form.Label>
-            <Form.Control asChild>
-              <input type="email" name="email" required className="w-full px-3 py-2 border rounded" />
+            <Form.Control asChild size={3}>
+              <input
+                type="email"
+                name="email"
+                required
+                className="w-full px-3 py-2 border rounded"
+              />
             </Form.Control>
           </Form.Field>
           <Form.Field name="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control asChild>
-              <input type="password" name="password" required className="w-full px-3 py-2 border rounded" />
+            <Form.Control asChild size={3}>
+              <input
+                type="password"
+                name="password"
+                required
+                className="w-full px-3 py-2 border rounded"
+              />
             </Form.Control>
           </Form.Field>
           <Form.Submit asChild>

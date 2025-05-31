@@ -1,94 +1,63 @@
-# hirewise.ai - AI Assistant for Recruiters
+# HireWise AI
 
-Build powerful AI workflows using a visual, no-code interface. hirewise.ai helps you create and manage multi-agent applications with ease.
+HireWise AI helps recruiters orchestrate multi-agent workflows through a visual, no-code interface. This repository is a monorepo containing the Next.js frontend and the FastAPI backend.
 
-## Features
+## Repository layout
 
-- 🤖 **Multi-Agent Workflows**: Create complex AI agent interactions through a visual interface
-- 🎨 **Modern UI**: Built with Next.js 15 and Radix UI components
-- 🔧 **Robust Backend**: Python 3.13 FastAPI server for high-performance AI operations
-- 📦 **Monorepo Architecture**:
-  - Managed with **Turborepo** and **pnpm** workspaces
-  - Shared packages under `/packages` and tools under `/tools`
-  - FastAPI backend in `apps/api` managed with **Poetry**
-  - Next.js frontend in `apps/web`
-- 🚀 **Production Ready**:
-  - Vercel frontend deployment
-  - Fly.io backend deployment
-  - PNPM package management
-  - Custom cursor interactions
-  - Responsive design
+- **apps/web** – Next.js 15 frontend
+- **apps/api** – FastAPI backend
+- **packages/database** – Prisma client and utilities
+- **tools** – development helpers
 
-## Tech Stack
+## Quick start
 
-- **Frontend**: Next.js 15, Radix UI, TailwindCSS
-- **Backend**: Python 3.13, FastAPI
-- **Build Tools**: Turborepo, PNPM
-- **Deployment**: Vercel (frontend) & Fly.io (backend)
+### Prerequisites
+- Node.js 18+
+- Python 3.11+
+- pnpm
 
-## Getting Started
+### Installation
+```bash
+# clone the repository
+git clone https://github.com/yourusername/hirewise-ai.git
+cd hirewise-ai
 
-1. **Prerequisites**
-   - Node.js 18+
-   - Python 3.13
-   - PNPM
+# install dependencies
+direnv allow || true
+pnpm install
+```
 
-2. **Installation**
+### Environment variables
+Create `.env.local` files in `apps/web` and `apps/api` and provide the values required by each application. At minimum you will need:
 
-   ```bash
-   # Clone the repository
-   git clone https://github.com/yourusername/hirewise.git
-   cd hirewise-ai
+```bash
+DATABASE_URL=<database-url>
+NEXT_PUBLIC_API_URL=http://localhost:8000
+JWT_SECRET=<your-secret>
+```
 
-   # Install dependencies
-   pnpm install
-   ```
+### Development
+```bash
+# run both applications
+pnpm dev
+```
 
-3. **Environment Variables**
-
-   Create `.env.local` files in `apps/web` and `apps/api` with the following variables:
-
-   ```bash
-   # Shared
-   DATABASE_URL=<database-url>
-   DIRECT_URL=<direct-database-url>
-
-   # Web
-   NEXT_PUBLIC_API_URL=http://localhost:8000
-
-   # API
-   JWT_SECRET=<your-secret>
-   ```
-
-4. **Development**
-
-   ```bash
-   # Start the development server
-   pnpm dev
-   ```
-
-5. **Build and Deploy**
-
-    Deploy the frontend to Vercel. The FastAPI backend is deployed separately on Fly.io.
-
-    ```bash
-    cd apps/web
-    pnpm build
-    vercel
-    ```
+### Production build
+Each application can be built individually. For example:
+```bash
+# build the frontend
+pnpm --filter ./apps/web build
+```
 
 ## Documentation
-
-Detailed documentation is available in the `/docs` directory:
-
-- [Architecture Overview](/docs/architecture.md)
-- [API Reference](/docs/api.md)
-- [Component Library](/docs/components.md)
+Additional guides live in the [docs](./docs) directory:
+- [Layout system](./docs/LAYOUTS.md)
+- [Authentication](./docs/AUTHENTICATION.md)
+- [Font configuration](./docs/FONTS.md)
 
 ## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full text.
