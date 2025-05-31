@@ -5,12 +5,14 @@ This project uses custom Aeonik fonts integrated with Radix UI themes.
 ## Fonts Used
 
 ### Aeonik Sans (Headings)
+
 - **File**: `public/fonts/aeonik/sans/aeonik-semibold.woff2` (600 weight)
 - **File**: `public/fonts/aeonik/sans/aeonik-bold.woff2` (700 weight)
 - **Usage**: All heading elements (h1-h6) and Radix UI `<Heading>` components
 - **CSS Variable**: `--font-aeonik-sans`
 
 ### Aeonik Fono (Body Text)
+
 - **File**: `public/fonts/aeonik/fono/aeonikfono-regular.woff2` (400 weight)
 - **File**: `public/fonts/aeonik/fono/aeonikfono-medium.woff2` (500 weight)
 - **File**: `public/fonts/aeonik/fono/aeonikfono-semibold.woff2` (600 weight)
@@ -74,6 +76,7 @@ The fonts are configured in `src/styles/globals.css` to work with Radix UI theme
 ## Usage
 
 ### With Radix UI Components
+
 ```jsx
 import { Heading, Text } from '@radix-ui/themes';
 
@@ -85,6 +88,7 @@ import { Heading, Text } from '@radix-ui/themes';
 ```
 
 ### With HTML Elements
+
 ```jsx
 // These will automatically use the configured fonts
 <h1>Heading with Aeonik Sans</h1>
@@ -94,10 +98,12 @@ import { Heading, Text } from '@radix-ui/themes';
 ## Font Weights
 
 ### Aeonik Sans (Headings)
+
 - **600 (Semibold)**: Default for all headings
 - **700 (Bold)**: Available for emphasis
 
 ### Aeonik Fono (Body)
+
 - **400 (Regular)**: Default for body text
 - **500 (Medium)**: For emphasis and strong text
 - **600 (Semibold)**: For strong emphasis
