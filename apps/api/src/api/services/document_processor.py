@@ -5,7 +5,20 @@ from langchain_community.document_loaders import (
     PyPDFLoader, CSVLoader, TextLoader
 )
 # from langchain.document_loaders.html import BSHTMLLoader
-from sentence_transformers import SentenceTransformer
+# Temporarily disabled sentence-transformers due to Docker build issues
+try:
+    from sentence_transformers import SentenceTransformer
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+    # Create a dummy class for type hints
+    class SentenceTransformer:
+        def __init__(self, *args, **kwargs):
+            pass
+        def encode(self, text):
+            # Return dummy embedding for now
+            return [0.0] * 384  # Default dimension
+
 import os
 import asyncio
 import aiohttp
@@ -24,7 +37,12 @@ class DocumentProcessor:
     """
 
     def __init__(self):
-        self.embedding_model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        if SENTENCE_TRANSFORMERS_AVAILABLE:
+            self.embedding_model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        else:
+            logger.warning("sentence-transformers not available - embeddings will be disabled")
+            self.embedding_model = None
+
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=settings.CHUNK_SIZE,
             chunk_overlap=settings.CHUNK_OVERLAP,

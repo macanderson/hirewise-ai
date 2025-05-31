@@ -126,7 +126,7 @@ kill_timeout = 30
 # - Logs: Fly.io logs, Sentry, external logging services
 # - Cache: Redis, external cache services
 
-# Top-level health checks for non-HTTP services
+# Top-level halth checks for non-HTTP services
 [checks]
   [checks.database_connection]
     type = "tcp"

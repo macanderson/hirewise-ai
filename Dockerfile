@@ -4,7 +4,7 @@
 # ================================
 # Base Python Image
 # ================================
-FROM python:3.11-slim as base
+FROM python:3.11-slim AS base
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -26,7 +26,7 @@ RUN pip install poetry==$POETRY_VERSION
 # ================================
 # Dependencies Stage
 # ================================
-FROM base as dependencies
+FROM base AS dependencies
 
 # Configure Poetry
 ENV POETRY_NO_INTERACTION=1 \
@@ -44,12 +44,21 @@ COPY packages/database/ ./packages/database/
 
 # Install dependencies
 WORKDIR /app/apps/api
-RUN poetry install --only=main --no-root && rm -rf $POETRY_CACHE_DIR
+
+# Configure Poetry to create venv in project
+RUN poetry config virtualenvs.create true && \
+    poetry config virtualenvs.in-project true && \
+    poetry config virtualenvs.path .venv
+
+# Install dependencies
+RUN poetry install --only=main --no-root && \
+    rm -rf $POETRY_CACHE_DIR && \
+    ls -la .venv/
 
 # ================================
 # Production Stage
 # ================================
-FROM base as production
+FROM base AS production
 
 # Create non-root user
 RUN groupadd -r fastapi && useradd -r -g fastapi fastapi

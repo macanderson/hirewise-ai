@@ -2,7 +2,20 @@ from typing import List, Dict, Any
 import logging
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
+
+# Temporarily disabled sentence-transformers due to Docker build issues
+try:
+    from sentence_transformers import SentenceTransformer
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+    # Create a dummy class for type hints
+    class SentenceTransformer:
+        def __init__(self, *args, **kwargs):
+            pass
+        def encode(self, text):
+            # Return dummy embedding for now
+            return [0.0] * 384  # Default dimension
 
 from api.core.config import settings
 from api.db.client import get_prisma_client
@@ -12,7 +25,11 @@ logger = logging.getLogger(__name__)
 
 class DocumentRetriever:
     def __init__(self):
-        self.embedding_model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        if SENTENCE_TRANSFORMERS_AVAILABLE:
+            self.embedding_model = SentenceTransformer(settings.EMBEDDING_MODEL)
+        else:
+            logger.warning("sentence-transformers not available - retrieval will be disabled")
+            self.embedding_model = None
         self.prisma = get_prisma_client()
 
     async def retrieve(
