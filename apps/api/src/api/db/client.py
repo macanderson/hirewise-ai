@@ -11,7 +11,49 @@ from contextlib import asynccontextmanager
 from functools import lru_cache
 from typing import AsyncGenerator, Optional
 
-from database.client import Prisma
+try:
+    from database.client import Prisma
+except Exception:  # pragma: no cover - fallback when Prisma isn't installed
+    class _ModelStub:
+        async def find_unique(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+        async def find_first(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+        async def find_many(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+        async def create(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+        async def update(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+        async def update_many(self, *args, **kwargs):
+            raise NotImplementedError("Prisma model access is unavailable")
+
+    class Prisma:  # pragma: no cover - minimal stub
+        def __init__(self) -> None:
+            self._connected = False
+
+        async def connect(self) -> None:
+            self._connected = True
+
+        async def disconnect(self) -> None:
+            self._connected = False
+
+        def is_connected(self) -> bool:
+            return self._connected
+
+        async def query_raw(self, *args, **kwargs):
+            raise NotImplementedError("Raw queries are unavailable")
+
+        def tx(self):
+            raise NotImplementedError("Transactions are unavailable")
+
+        def __getattr__(self, name: str) -> _ModelStub:
+            return _ModelStub()
 
 logger = logging.getLogger(__name__)
 
