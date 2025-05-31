@@ -120,24 +120,6 @@ class ApiClient {
     }
   }
 
-  async signUp(data: SignUpRequest): Promise<LoginResponse> {
-    const response = await fetch(`${this.baseUrl}/api/v1/auth/sign-up`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const errorData: ApiError = await response.json();
-      throw new Error(errorData.detail || 'Registration failed');
-    }
-
-    return response.json();
-  }
-
   async requestPasswordReset(email: string): Promise<void> {
     const response = await fetch(`${this.baseUrl}/api/v1/auth/request-password-reset`, {
       method: 'POST',
