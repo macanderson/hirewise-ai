@@ -545,25 +545,6 @@ files = [
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
 
-[[package]]
-name = "database"
-version = "0.1.0"
-description = ""
-optional = false
-python-versions = ">=3.10"
-groups = ["main"]
-files = []
-develop = true
-
-[package.dependencies]
-prisma = ">=0.15.0,<0.16.0"
-
-[package.extras]
-dev = ["flake8", "mypy", "pylint", "ruff"]
-
-[package.source]
-type = "directory"
-url = "../../packages/database"
 
 [[package]]
 name = "dataclasses-json"

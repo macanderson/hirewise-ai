@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     # API Keys
     OPENAI_API_KEY: str = Field(default="", description="OpenAI API key")
     ANTHROPIC_API_KEY: str = Field(default="", description="Anthropic API key")
+    SUPABASE_URL: str = Field(default="", description="Supabase project URL")
+    SUPABASE_KEY: str = Field(default="", description="Supabase service key")
 
     # Vector database settings
     VECTOR_DIMENSION: int = 384  # all-MiniLM-L6-v2 dimension

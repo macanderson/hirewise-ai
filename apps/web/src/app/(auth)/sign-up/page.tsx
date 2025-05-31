@@ -22,7 +22,7 @@ export default function SignUpPage() {
 
     try {
       await AuthManager.signUp({ email, password });
-      router.push('/dashboard');
+      router.push('/app/dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sign up failed');
     } finally {
@@ -49,7 +49,7 @@ export default function SignUpPage() {
         <Form.Root onSubmit={handleSubmit} className="space-y-4">
           <Form.Field name="email">
             <Form.Label>Email</Form.Label>
-            <Form.Control asChild>
+            <Form.Control asChild size={3}>
               <input
                 type="email"
                 name="email"
@@ -60,7 +60,7 @@ export default function SignUpPage() {
           </Form.Field>
           <Form.Field name="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control asChild>
+            <Form.Control asChild size={3}>
               <input
                 type="password"
                 name="password"

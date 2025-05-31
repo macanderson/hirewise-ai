@@ -10,6 +10,14 @@ export interface LoginResponse {
   token_type: string;
 }
 
+export interface SignUpRequest {
+  email: string;
+  password: string;
+  first_name?: string;
+  last_name?: string;
+  organization_name?: string;
+}
+
 export interface ApiError {
   detail: string;
 }
@@ -54,6 +62,19 @@ class ApiClient {
       throw new Error(errorData.detail || 'Login failed');
     }
 
+    return response.json();
+  }
+
+  async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    const response = await fetch(`${this.baseUrl}/api/v1/auth/sign-up`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const errorData: ApiError = await response.json();
+      throw new Error(errorData.detail || 'Sign up failed');
+    }
     return response.json();
   }
 

@@ -1,4 +1,4 @@
-import { apiClient, LoginRequest, LoginResponse } from './api';
+import { apiClient, LoginRequest, LoginResponse, SignUpRequest } from './api';
 
 const TOKEN_KEY = 'token';
 const TENANT_ID_KEY = 'tenant_id';
@@ -46,6 +46,16 @@ export class AuthManager {
   static removeTenantId(): void {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(TENANT_ID_KEY);
+    }
+  }
+
+  static async signUp(data: SignUpRequest): Promise<LoginResponse> {
+    try {
+      const response = await apiClient.signUp(data);
+      this.setToken(response.access_token);
+      return response;
+    } catch (error) {
+      throw error;
     }
   }
 
