@@ -25,13 +25,12 @@ RUN poetry install --no-root --no-interaction --no-ansi
 
 # Copy application code
 COPY apps/api/src ./src
-COPY packages/database ./packages/database
 
 # Create a simple README to satisfy Poetry if needed later
 RUN echo "# Hello World" > README.md
 
 # Set Python path
-ENV PYTHONPATH=/app/src:/app/packages/database/src
+ENV PYTHONPATH=/app/src
 
 # Expose port
 EXPOSE 8000
