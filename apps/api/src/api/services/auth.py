@@ -6,14 +6,10 @@ import bcrypt
 from jose import JWTError, jwt
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
+from supabase import create_client, Client
 
 from api.core.config import settings
 
-try:
-    from supabase import create_client, Client
-except Exception:  # pragma: no cover
-    Client = None
-    create_client = None
 
 logger = logging.getLogger(__name__)
 
