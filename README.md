@@ -1,6 +1,6 @@
 # HireWise AI
 
-HireWise AI helps recruiters orchestrate multi-agent workflows through a visual, no-code interface. This repository is a monorepo containing the Next.js frontend and the FastAPI backend.
+HireWise, agentic AI for recruiters.
 
 ## Repository layout
 
